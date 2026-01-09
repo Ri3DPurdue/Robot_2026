@@ -15,18 +15,5 @@ public class ControlBoard {
         s.drive.setDefaultCommand(s.drive.teleopDrive(driver));
         driver.start().onTrue(Commands.runOnce(() -> s.drive.resetPose(new Pose2d())));
 
-        driver.a().onTrue(s.exampleArm.prepScore());
-        driver.x().onTrue(s.exampleIntake.unjam());
-        driver.b().onTrue(s.stowAll());
-        driver.y().onTrue(s.exampleShooter.prepShot());
-
-        driver.leftTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.intakeToShooter());
-
-        driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.exampleShooter.fireWhenReady());
-        driver.rightBumper().onTrue(s.exampleArm.score());
-
-        driver.povUp().onTrue(s.prepClimb());
-        driver.povDown().onTrue(s.exampleClimber.pull());
-
     }
 }
