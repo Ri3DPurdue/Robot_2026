@@ -15,5 +15,7 @@ public class ControlBoard {
         s.drive.setDefaultCommand(s.drive.teleopDrive(driver));
         driver.start().onTrue(Commands.runOnce(() -> s.drive.resetPose(new Pose2d())));
 
+        driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.shooter.fire());
+
     }
 }
