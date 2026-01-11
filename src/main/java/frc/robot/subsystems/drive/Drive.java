@@ -10,8 +10,11 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -63,6 +66,34 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             );
     }
 
+    public Distance getShotDistance() {
+        Pose2d drivePose = getState().Pose;
+        Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
+        double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
+        double centerToShooterMeters = DriveConstants.shooterSideOffset.in(Units.Meters);
+        double shooterIdealToHubMeters = Math.sqrt(Math.pow(centerToHubMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
+        return Units.Meters.of(shooterIdealToHubMeters);
+    }
+
+    public Command alignDrive(CommandXboxController controller) {
+        return applyRequest(() -> {
+            Pose2d drivePose = getState().Pose;
+            double centerToShooterMeters = -DriveConstants.shooterSideOffset.in(Units.Meters);
+            Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
+            double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
+            double shooterToCenterToHubAngleRads = Math.acos(centerToShooterMeters / centerToHubMeters); 
+            Rotation2d shooterToCenterToHubAngle = Rotation2d.fromRadians(shooterToCenterToHubAngleRads);
+            Rotation2d offsetFromHubDesiredAngle = Rotation2d.kCCW_90deg.minus(shooterToCenterToHubAngle);
+            Rotation2d desiredCenterAngleFieldRelative = offsetFromHubDesiredAngle.plus(drivePose.relativeTo(hubPose).getTranslation().getAngle());
+            Rotation2d currentAngle = drivePose.getRotation();
+            double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredCenterAngleFieldRelative.plus(Rotation2d.k180deg).getRadians());
+
+            return teleopRequest.withVelocityX(-controller.getLeftY() * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
+            .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
+        });
+    }
+
     @Override
     public void log(String path) {
         logPose(path);
@@ -71,6 +102,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
 
     public void logPose(String path) {
         Logger.log(path, "Pose", getState().Pose);
+        Logger.log(path, "Shooter Pose", getState().Pose.transformBy(DriveConstants.shooterTransform));
     }
 
     public void logModules(String path) {

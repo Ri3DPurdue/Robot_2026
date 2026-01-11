@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.robot.controlBoard.ControlBoardConstants;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.indexer.Indexer;
@@ -33,6 +34,13 @@ public class Superstructure implements Loggable {
         return Commands.parallel(
             indexer.intake(),
             intake.intake()
+        );
+    }
+
+    public Command prepScore() {
+        return Commands.parallel(
+            shooter.prepVariableShot(() -> drive.getShotDistance()),
+            drive.alignDrive(ControlBoardConstants.driver)
         );
     }
 

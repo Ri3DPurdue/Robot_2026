@@ -4,11 +4,18 @@ import static edu.wpi.first.units.Units.Celsius;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.units.AngularVelocityUnit;
+import edu.wpi.first.units.DistanceUnit;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import frc.lib.component.FlywheelMotorComponent;
@@ -20,6 +27,7 @@ import frc.lib.io.motor.setpoints.VoltageSetpoint;
 import frc.lib.mechanismSim.RollerSim;
 import frc.lib.mechanismSim.SimObject;
 import frc.lib.util.ConfigUtil;
+import frc.lib.util.UnitsUtil.InterpolatingMeasureMap;
 import frc.robot.IDs;
 import frc.robot.Robot;
 
@@ -45,6 +53,18 @@ public class BottomFlywheelConstants {
 
     // Information about motors driving system
     public static final DCMotor motor = DCMotor.getKrakenX60(2); // Only needed for sim
+
+    private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
+        ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
+
+        a.add(Pair.of(Units.Inches.of(0.0), Units.RPM.of(100)));
+        a.add(Pair.of(Units.Inches.of(12.0), Units.RPM.of(1000)));
+        a.add(Pair.of(Units.Inches.of(36.0), Units.RPM.of(1500)));
+
+        return a;
+    }
+
+    public static InterpolatingMeasureMap<Distance, DistanceUnit, AngularVelocity, AngularVelocityUnit> shotDistanceVelocityMap = new InterpolatingMeasureMap<>(getInterpolableData());
 
     /**
      *  Gets the final component for the system
