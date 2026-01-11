@@ -5,7 +5,8 @@ public enum IDs {
 
     // IDs 0-9 Reserved for drivetrain
     INDEXER_BELT(20, "canivore1"),
-    INDEXER_FEEDER(21, "canivore1");
+    INDEXER_FEEDER(21, "canivore1"),
+    CLIMBER_MAIN(40, "canivore1");
 
     public final int id;
     public final String bus;
