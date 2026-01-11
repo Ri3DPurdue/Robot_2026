@@ -4,7 +4,8 @@ public enum IDs {
     // CAN IDs
 
     // IDs 0-9 Reserved for drivetrain
-    TBD(62, "");
+    INTAKE_PIVOT(10, ""),
+    INTAKE_ROLLERS(11, "");
 
     public final int id;
     public final String bus;
