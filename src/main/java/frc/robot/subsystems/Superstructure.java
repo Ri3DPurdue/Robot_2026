@@ -39,7 +39,7 @@ public class Superstructure implements Loggable {
 
     public Command prepScore() {
         return Commands.parallel(
-            shooter.prepShot(),
+            shooter.prepVariableShot(() -> drive.getShotDistance()),
             drive.alignDrive(ControlBoardConstants.driver)
         );
     }

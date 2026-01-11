@@ -1,26 +1,30 @@
 package frc.robot.subsystems.shooter;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.component.ComponentSubsystem;
 import frc.lib.component.FlywheelMotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
+import frc.lib.io.motor.setpoints.VelocitySetpoint;
 
 public class Shooter extends ComponentSubsystem {
-    private final FlywheelMotorComponent<TalonFXIO> Topflywheel;
-    private final FlywheelMotorComponent<TalonFXIO> Bottomflywheel;
+    private final FlywheelMotorComponent<TalonFXIO> topflywheel;
+    private final FlywheelMotorComponent<TalonFXIO> bottomflywheel;
 
 
     public Shooter() {
-        Topflywheel = registerComponent("Top Flywheel", TopFlywheelConstants.getComponent());
-        Bottomflywheel = registerComponent("Bottom Flywheel", BottomFlywheelConstants.getComponent());
+        topflywheel = registerComponent("Top Flywheel", TopFlywheelConstants.getComponent());
+        bottomflywheel = registerComponent("Bottom Flywheel", BottomFlywheelConstants.getComponent());
     }
 
     public Command idleMotors(){
         return withRequirement(
             Commands.parallel(
-                Topflywheel.applySetpointCommand(TopFlywheelConstants.idleSetpoint),
-                Bottomflywheel.applySetpointCommand(BottomFlywheelConstants.idleSetpoint)
+                topflywheel.applySetpointCommand(TopFlywheelConstants.idleSetpoint),
+                bottomflywheel.applySetpointCommand(BottomFlywheelConstants.idleSetpoint)
             )
         );
     }
@@ -28,17 +32,26 @@ public class Shooter extends ComponentSubsystem {
     public Command lowVoltage(){
         return withRequirement(
             Commands.parallel(
-                Topflywheel.applySetpointCommand(TopFlywheelConstants.lowVoltageSetpoint),
-                Bottomflywheel.applySetpointCommand(BottomFlywheelConstants.lowVoltageSetpoint)
+                topflywheel.applySetpointCommand(TopFlywheelConstants.lowVoltageSetpoint),
+                bottomflywheel.applySetpointCommand(BottomFlywheelConstants.lowVoltageSetpoint)
             )
         );
     }
 
-    public Command prepShot() {
+    public Command prepBasicShot() {
         return withRequirement(
             Commands.parallel(
-                Topflywheel.applySetpointCommand(TopFlywheelConstants.shotSetpoint),
-                Bottomflywheel.applySetpointCommand(BottomFlywheelConstants.shotSetpoint)
+                topflywheel.applySetpointCommand(TopFlywheelConstants.shotSetpoint),
+                bottomflywheel.applySetpointCommand(BottomFlywheelConstants.shotSetpoint)
+            )
+        );
+    }
+
+    public Command prepVariableShot(Supplier<Distance> shotDistanceSupplier) {
+        return withRequirement(
+            Commands.parallel(
+                topflywheel.followSetpointCommand(() -> new VelocitySetpoint(TopFlywheelConstants.shotDistanceVelocityMap.get(shotDistanceSupplier.get()))),
+                bottomflywheel.followSetpointCommand(() -> new VelocitySetpoint(BottomFlywheelConstants.shotDistanceVelocityMap.get(shotDistanceSupplier.get())))
             )
         );
     }

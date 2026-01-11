@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -63,6 +64,15 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
                     .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-controller.getRightX() * DriveConstants.maxAngularRate) // Drive counterclockwise with negative X (left)
             );
+    }
+
+    public Distance getShotDistance() {
+        Pose2d drivePose = getState().Pose;
+        Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
+        double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
+        double centerToShooterMeters = DriveConstants.shooterSideOffset.in(Units.Meters);
+        double shooterIdealToHubMeters = Math.sqrt(Math.pow(centerToHubMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
+        return Units.Meters.of(shooterIdealToHubMeters);
     }
 
     public Command alignDrive(CommandXboxController controller) {
