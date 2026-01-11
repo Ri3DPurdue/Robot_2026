@@ -29,17 +29,15 @@ public class TopFlywheelConstants {
 
     // Notable points for system
     public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
-    public static final Voltage unjamVoltage = Units.Volts.of(-8.0); //TODO get actual voltage
-    public static final Voltage lowVoltage = Units.Volts.of(1); //TODO get actual voltage
+    public static final AngularVelocity spunDownVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
 
     // Setpoints for notable points
     public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
-    public static final VoltageSetpoint feedSetpoint = new VoltageSetpoint(unjamVoltage);
+    public static final VelocitySetpoint lowVoltageSetpoint = new VelocitySetpoint(spunDownVelocity);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
-    public static final VoltageSetpoint lowVoltageSetpoint = new VoltageSetpoint(lowVoltage);
 
     // Information about motors driving system
-    public static final DCMotor motor = DCMotor.getKrakenX60(2); // Only needed for sim
+    public static final DCMotor motor = DCMotor.getKrakenX60(1); // Only needed for sim
 
     /**
      *  Gets the final component for the system
@@ -55,18 +53,18 @@ public class TopFlywheelConstants {
     public static final TalonFXIO getMotorIO() {
         return Robot.isReal() 
             ? new TalonFXIO(
-                IDs.TopShooterFlywheelID.id,
-                IDs.TopShooterFlywheelID.bus,
+                IDs.SHOOTER_TOP_FLYWHEEL.id,
+                IDs.SHOOTER_TOP_FLYWHEEL.bus,
                 getMainConfig(),
-                Pair.of(IDs.TopShooterFlywheelID.id, false)
+                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
                 )
             : new TalonFXIOSim(
-                IDs.TopShooterFlywheelID.id,
-                IDs.TopShooterFlywheelID.bus,
+                IDs.SHOOTER_TOP_FLYWHEEL.id,
+                IDs.SHOOTER_TOP_FLYWHEEL.bus,
                 getMainConfig(),
                 getSimObject(),
                 gearing,
-                Pair.of(IDs.TopShooterFlywheelID.id, false)
+                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
             );
     }
 

@@ -3,10 +3,7 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.component.ComponentSubsystem;
-import frc.lib.component.DigitalIOComponent;
 import frc.lib.component.FlywheelMotorComponent;
-import frc.lib.component.MotorComponent;
-import frc.lib.component.ServoMotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
 
 public class Shooter extends ComponentSubsystem {
@@ -37,13 +34,7 @@ public class Shooter extends ComponentSubsystem {
         );
     }
 
-    public Command prepShot(){
-        return withRequirement(
-            Topflywheel.applyVelocitySetpointCommandWithWait(TopFlywheelConstants.shotSetpoint)
-        );
-    }
-
-    public Command fire() {
+    public Command prepShot() {
         return withRequirement(
             Commands.parallel(
                 Topflywheel.applySetpointCommand(TopFlywheelConstants.shotSetpoint),
@@ -51,18 +42,5 @@ public class Shooter extends ComponentSubsystem {
             )
         );
     }
-
-    public Command fireWhenReady() {
-        return withRequirement(
-            Commands.sequence(
-                prepShot(),
-                fire()
-            )
-        );
-    }
-
-
-    
-
     
 }
