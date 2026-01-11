@@ -12,14 +12,14 @@ public class Indexer extends ComponentSubsystem {
 
     public Indexer() {
         belt = registerComponent("Belt", BeltConstants.getComponent());
-        stopper = registerComponent("Stopper", StopperConstants.getComponent());
+        stopper = registerComponent("Stopper", FeederConstants.getComponent());
     }
 
     public Command intake() {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.intakeSetpoint),
-                stopper.applySetpointCommand(StopperConstants.blockSetpoint)
+                stopper.applySetpointCommand(FeederConstants.idleSetpoint)
             )
         );
     }
@@ -28,7 +28,7 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.idleSetpoint),
-                stopper.applySetpointCommand(StopperConstants.blockSetpoint)
+                stopper.applySetpointCommand(FeederConstants.idleSetpoint)
             )
         );    
     }
@@ -37,7 +37,7 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.feedSetpoint),
-                stopper.applySetpointCommand(StopperConstants.openSetpoint)
+                stopper.applySetpointCommand(FeederConstants.idleSetpoint)
             )
         );    
     }
