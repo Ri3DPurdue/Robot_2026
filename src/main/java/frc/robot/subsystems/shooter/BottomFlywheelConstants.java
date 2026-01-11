@@ -1,7 +1,6 @@
 package frc.robot.subsystems.shooter;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.Units;
@@ -57,18 +56,16 @@ public class BottomFlywheelConstants {
     public static final TalonFXIO getMotorIO() {
         return Robot.isReal() 
             ? new TalonFXIO(
-                IDs.BottomShooterFlywheelID.id,
-                IDs.BottomShooterFlywheelID.bus,
-                getMainConfig(),
-                Pair.of(IDs.TopShooterFlywheelID.id, false)
+                IDs.SHOOTER_BOTTOM_FLYWHEEL.id,
+                IDs.SHOOTER_BOTTOM_FLYWHEEL.bus,
+                getMainConfig()
                 )
             : new TalonFXIOSim(
-                IDs.BottomShooterFlywheelID.id,
-                IDs.BottomShooterFlywheelID.bus,
+                IDs.SHOOTER_BOTTOM_FLYWHEEL.id,
+                IDs.SHOOTER_BOTTOM_FLYWHEEL.bus,
                 getMainConfig(),
                 getSimObject(),
-                gearing,
-                Pair.of(IDs.BottomShooterFlywheelID.id, false)
+                gearing
             );
     }
 

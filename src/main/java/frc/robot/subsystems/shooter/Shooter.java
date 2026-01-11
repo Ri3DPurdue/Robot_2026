@@ -12,8 +12,8 @@ public class Shooter extends ComponentSubsystem {
 
 
     public Shooter() {
-        Topflywheel = registerComponent("TopFlywheel", TopFlywheelConstants.getComponent());
-        Bottomflywheel = registerComponent("BottomFlywheel", BottomFlywheelConstants.getComponent());
+        Topflywheel = registerComponent("Top Flywheel", TopFlywheelConstants.getComponent());
+        Bottomflywheel = registerComponent("Bottom Flywheel", BottomFlywheelConstants.getComponent());
     }
 
     public Command idleMotors(){

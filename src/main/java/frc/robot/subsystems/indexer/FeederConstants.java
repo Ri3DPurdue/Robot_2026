@@ -29,7 +29,7 @@ public class FeederConstants {
     public static final Voltage feedVoltage = Volts.of(8.0);
     
     // Setpoints for notable points
-    public static final VoltageSetpoint openSetpoint = new VoltageSetpoint(feedVoltage);
+    public static final VoltageSetpoint feedSetpoint = new VoltageSetpoint(feedVoltage);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
     
     // Information about motors driving system
