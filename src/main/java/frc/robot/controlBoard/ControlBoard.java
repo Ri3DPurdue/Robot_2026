@@ -21,5 +21,10 @@ public class ControlBoard {
         driver.leftTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.shooter.prepShot());
         driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.indexer.feed());
 
+        driver.povUp().onTrue(s.climber.fullExtend());
+        driver.povLeft().onTrue(s.climber.partialExtend());
+        driver.povRight().onTrue(s.climber.pull());
+        driver.povDown().onTrue(s.climber.stow());
+
     }
 }

@@ -1,8 +1,8 @@
 package frc.robot.subsystems.indexer;
 
 import static edu.wpi.first.units.Units.Celsius;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -40,7 +40,7 @@ public class FeederConstants {
      */ 
     public static final MotorComponent<TalonFXIO> getComponent() {
         TalonFXIO io = getMotorIO();
-        io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
+        io.overrideLoggedUnits(Rotations, RPM, Celsius);
         return new MotorComponent<>(io); 
     }
 

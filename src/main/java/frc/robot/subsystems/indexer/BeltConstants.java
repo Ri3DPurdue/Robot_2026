@@ -1,8 +1,8 @@
 package frc.robot.subsystems.indexer;
 
 import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Rotations;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -50,7 +50,7 @@ public class BeltConstants {
     */
     public static final MotorComponent<TalonFXIO> getComponent() {
         TalonFXIO io = getMotorIO();
-        io.overrideLoggedUnits(Rotations, RotationsPerSecond, Celsius);
+        io.overrideLoggedUnits(Rotations, RPM, Celsius);
         return new MotorComponent<TalonFXIO>(getMotorIO());
     }
 

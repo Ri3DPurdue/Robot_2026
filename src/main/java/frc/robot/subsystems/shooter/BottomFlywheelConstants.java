@@ -1,5 +1,9 @@
 package frc.robot.subsystems.shooter;
 
+import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -46,6 +50,8 @@ public class BottomFlywheelConstants {
      *  Gets the final component for the system
      */ 
     public static final FlywheelMotorComponent<TalonFXIO> getComponent() {
+        TalonFXIO io =  getMotorIO();
+        io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
         return new FlywheelMotorComponent<TalonFXIO>(getMotorIO(), epsilonThreshold);
     }
 

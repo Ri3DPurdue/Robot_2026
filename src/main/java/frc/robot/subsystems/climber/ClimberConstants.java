@@ -31,18 +31,20 @@ public class ClimberConstants {
     public static final double gearing = (5.0 / 1.0) * (2.0 / 1.0);
     
     // Constraints of the system's movement (hard stops, potential interferences, soft limits, etc.)
-    public static final Distance minDistance = Units.Meters.of(0.0);
-    public static final Distance maxDistance = Units.Meters.of(1.2);
+    public static final Distance minDistance = Units.Inches.of(0.0);
+    public static final Distance maxDistance = Units.Inches.of(12.0);
     
     // Notable points for system
-    public static final Distance extendDistance = Units.Meters.of(1.08);
-    public static final Distance stowDistance = minDistance;
+    public static final Distance fullExtendDistance = Units.Inches.of(11.5);
+    public static final Distance partialExtendDistance = Units.Inches.of(8.0);
     public static final Distance pullDistance = Units.Inches.of(6.0);
+    public static final Distance stowDistance = minDistance;
     
     // Setpoints for notable points
-    public static final PositionSetpoint extendSetpoint = new PositionSetpoint(converter.toAngle(extendDistance));
-    public static final PositionSetpoint stowSetpoint = new PositionSetpoint(converter.toAngle(stowDistance));
+    public static final PositionSetpoint fullExtendSetpoint = new PositionSetpoint(converter.toAngle(fullExtendDistance));
+    public static final PositionSetpoint partialExtendSetpoint = new PositionSetpoint(converter.toAngle(partialExtendDistance));
     public static final PositionSetpoint pullSetpoint = new PositionSetpoint(converter.toAngle(pullDistance));
+    public static final PositionSetpoint stowSetpoint = new PositionSetpoint(converter.toAngle(stowDistance));
     
     // Information about motors driving system
     public static final DCMotor motor = DCMotor.getKrakenX60(1); // Only needed for sim
@@ -82,7 +84,7 @@ public class ClimberConstants {
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
         ConfigUtil.withSoftLimits(config, converter.toAngle(maxDistance), converter.toAngle(minDistance));
-        config.Slot0.kP = 0.5; 
+        config.Slot0.kP = 0.8; 
         config.Slot0.kD = 0.0;
 
         return config;    
