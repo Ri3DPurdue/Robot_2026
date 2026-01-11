@@ -18,7 +18,7 @@ public class ControlBoard {
         driver.rightBumper().onTrue(s.stow());
         driver.leftBumper().onTrue(s.intake());
 
-        driver.leftTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.shooter.prepShot());
+        driver.leftTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.prepScore());
         driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.indexer.feed());
 
         driver.povUp().onTrue(s.climber.fullExtend());
