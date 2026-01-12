@@ -26,6 +26,11 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
     private final SwerveRequest.FieldCentric teleopRequest = new SwerveRequest.FieldCentric()
         .withDeadband(DriveConstants.maxSpeed * 0.1).withRotationalDeadband(DriveConstants.maxAngularRate * 0.1) // Add a 10% deadband
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
+    private final SwerveRequest.FieldCentric alignRequest = new SwerveRequest.FieldCentric()
+        .withDeadband(DriveConstants.maxSpeed * 0.1) // Add a 10% deadband to translation only
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
     private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
 
     public Drive() {
@@ -88,7 +93,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             Rotation2d currentAngle = drivePose.getRotation();
             double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredCenterAngleFieldRelative.plus(Rotation2d.k180deg).getRadians());
 
-            return teleopRequest.withVelocityX(-controller.getLeftY() * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
+            return alignRequest.withVelocityX(-controller.getLeftY() * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
             .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
             .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
         });
