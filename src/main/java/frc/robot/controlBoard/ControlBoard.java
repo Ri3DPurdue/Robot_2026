@@ -15,5 +15,16 @@ public class ControlBoard {
         s.drive.setDefaultCommand(s.drive.teleopDrive(driver));
         driver.start().onTrue(Commands.runOnce(() -> s.drive.resetPose(new Pose2d())));
 
+        driver.rightBumper().onTrue(s.stow());
+        driver.leftBumper().onTrue(s.intake());
+
+        driver.leftTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.prepScore());
+        driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.indexer.feed());
+
+        driver.povUp().onTrue(s.climber.fullExtend());
+        driver.povLeft().onTrue(s.climber.partialExtend());
+        driver.povRight().onTrue(s.climber.pull());
+        driver.povDown().onTrue(s.climber.stow());
+
     }
 }

@@ -1,6 +1,12 @@
 package frc.lib.util;
 
+import java.util.List;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
+import edu.wpi.first.math.interpolation.Interpolator;
+import edu.wpi.first.math.interpolation.InverseInterpolator;
 import edu.wpi.first.units.AngleUnit;
 import edu.wpi.first.units.AngularAccelerationUnit;
 import edu.wpi.first.units.AngularVelocityUnit;
@@ -183,6 +189,36 @@ public class UnitsUtil {
 
 		public Distance getDrumRadius() {
 			return radius;
+		}
+	}
+
+	public static class MeasureInterpolable<T extends Measure<U>, U extends Unit> implements Interpolator<T> {
+		@Override
+		@SuppressWarnings("unchecked")
+		public T interpolate(T startValue, T endValue, double t) {
+			return (T) startValue.plus(endValue.minus(startValue).times(t));
+		}
+	}
+
+	public static class MeasureInverseInterpolable<T extends Measure<U>, U extends Unit>
+			implements InverseInterpolator<T> {
+		@Override
+		public double inverseInterpolate(T startValue, T endValue, T q) {
+			return q.minus(startValue).baseUnitMagnitude()
+					/ endValue.minus(startValue).baseUnitMagnitude();
+		}
+	}
+
+	public static class InterpolatingMeasureMap<
+					J extends Measure<U>, U extends Unit, K extends Measure<Q>, Q extends Unit>
+			extends InterpolatingTreeMap<J, K> {
+		public InterpolatingMeasureMap() {
+			super(new MeasureInverseInterpolable<J, U>(), new MeasureInterpolable<K, Q>());
+		}
+
+		public InterpolatingMeasureMap(List<Pair<J, K>> data) {
+			this();
+			data.forEach(point -> put(point.getFirst(), point.getSecond()));
 		}
 	}
 }

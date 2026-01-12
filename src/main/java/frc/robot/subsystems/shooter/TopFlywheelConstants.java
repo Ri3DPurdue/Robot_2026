@@ -1,0 +1,117 @@
+package frc.robot.subsystems.shooter;
+
+import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+
+import java.util.ArrayList;
+
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.units.AngularVelocityUnit;
+import edu.wpi.first.units.DistanceUnit;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import frc.lib.component.FlywheelMotorComponent;
+import frc.lib.io.motor.ctre.TalonFXIO;
+import frc.lib.io.motor.ctre.TalonFXIOSim;
+import frc.lib.io.motor.setpoints.IdleSetpoint;
+import frc.lib.io.motor.setpoints.VelocitySetpoint;
+import frc.lib.mechanismSim.RollerSim;
+import frc.lib.mechanismSim.SimObject;
+import frc.lib.util.ConfigUtil;
+import frc.lib.util.UnitsUtil.InterpolatingMeasureMap;
+import frc.robot.IDs;
+import frc.robot.Robot;
+
+public class TopFlywheelConstants {
+    // Epsilon threshold is velocity that is considered "close" for internal methods and wait commands. Lower value is higher required accuracy
+    public static final AngularVelocity epsilonThreshold = Units.RPM.of(100); //TODO get actual threshold
+    
+    // Gearing is a 48 to 40 reduction
+    public static final double gearing = 1.0; //TODO get actual gearing
+
+    // Notable points for system
+    public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
+    public static final AngularVelocity spunDownVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
+
+    // Setpoints for notable points
+    public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
+    public static final VelocitySetpoint lowVoltageSetpoint = new VelocitySetpoint(spunDownVelocity);
+    public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
+
+    // Information about motors driving system
+    public static final DCMotor motor = DCMotor.getKrakenX60(1); // Only needed for sim
+
+    private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
+        ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
+
+        a.add(Pair.of(Units.Inches.of(0.0), Units.RPM.of(100)));
+        a.add(Pair.of(Units.Inches.of(12.0), Units.RPM.of(1000)));
+        a.add(Pair.of(Units.Inches.of(36.0), Units.RPM.of(1500)));
+
+        return a;
+    }
+
+    public static InterpolatingMeasureMap<Distance, DistanceUnit, AngularVelocity, AngularVelocityUnit> shotDistanceVelocityMap = new InterpolatingMeasureMap<>(getInterpolableData());
+
+    /**
+     *  Gets the final component for the system
+     */ 
+    public static final FlywheelMotorComponent<TalonFXIO> getComponent() {
+        TalonFXIO io =  getMotorIO();
+        io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
+        return new FlywheelMotorComponent<TalonFXIO>(getMotorIO(), epsilonThreshold);
+    }
+
+    /**
+     * Gets a MotorIO for the system, returning a real one when actually running and a simulated one when running the simulation.
+     */
+    @SuppressWarnings("unchecked")
+    public static final TalonFXIO getMotorIO() {
+        return Robot.isReal() 
+            ? new TalonFXIO(
+                IDs.SHOOTER_TOP_FLYWHEEL.id,
+                IDs.SHOOTER_TOP_FLYWHEEL.bus,
+                getMainConfig(),
+                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+                )
+            : new TalonFXIOSim(
+                IDs.SHOOTER_TOP_FLYWHEEL.id,
+                IDs.SHOOTER_TOP_FLYWHEEL.bus,
+                getMainConfig(),
+                getSimObject(),
+                gearing,
+                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+            );
+    }
+
+
+    /** 
+     * Get the configuration of the main motor
+     */ 
+    public static final TalonFXConfiguration getMainConfig() {
+        TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
+        config.Slot0.kP = 1.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kV = 0.15;
+
+        return config;    
+    }
+
+    public static final SimObject getSimObject() {
+        FlywheelSim system = 
+            new FlywheelSim(
+                LinearSystemId.createFlywheelSystem(
+                    motor, 
+                    0.01, 
+                    gearing),
+                motor
+            );
+        return new RollerSim(system);
+    }
+}

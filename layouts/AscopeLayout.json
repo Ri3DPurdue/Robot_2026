@@ -1,0 +1,738 @@
+{
+  "hubs": [
+    {
+      "x": 216,
+      "y": 105,
+      "width": 1110,
+      "height": 659,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/AdvantageKit",
+            "/AdvantageKit/Robot",
+            "/AdvantageKit/Robot/Superstructure",
+            "/AdvantageKit/Robot/Superstructure/Intake",
+            "/AdvantageKit/Robot/Superstructure/Intake/Pivot",
+            "/SmartDashboard/Scheduler/Ids",
+            "/SmartDashboard/Scheduler/Cancel",
+            "/SmartDashboard/Scheduler/Names",
+            "/AdvantageKit/Robot/Superstructure/Intake/Rollers",
+            "/AdvantageKit/Robot/Superstructure/Intake/Rollers/Motor",
+            "/AdvantageKit/Robot/Superstructure/Intake/Pivot/Motor",
+            "/AdvantageKit/RealOutputs/Logger",
+            "/AdvantageKit/RealOutputs/Robot",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Pivot",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Rollers",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Pivot/Motor",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Rollers/Motor",
+            "/RealOutputs",
+            "/RealOutputs/Robot",
+            "/RealOutputs/Robot/Superstructure",
+            "/RealOutputs/Robot/Superstructure/Intake",
+            "/RealOutputs/Robot/Superstructure/Intake/Pivot",
+            "/RealOutputs/Robot/Superstructure/Intake/Pivot/Motor",
+            "/Robot",
+            "/Robot/Superstructure",
+            "/Robot/Superstructure/Intake",
+            "/Robot/Superstructure/Intake/Pivot",
+            "/Robot/Superstructure/Intake/Pivot/Motor",
+            "/AdvantageKit/Robot/Superstructure/Intake/Indexer",
+            "/AdvantageKit/Robot/Superstructure/Intake/Indexer/Motor",
+            "/AdvantageKit/RealOutputs",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Indexer",
+            "/AdvantageKit/RealOutputs/Robot/Superstructure/Intake/Indexer/Motor",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Motor",
+            "/Robot/Robot/Superstructure/Intake/Rollers/Motor",
+            "/Robot/Robot/Superstructure/Intake/Rollers/Motor/Main",
+            "/Robot/Robot/Superstructure/Intake/Indexer",
+            "/Robot/Robot/Superstructure/Intake/Indexer/Motor",
+            "/Robot/Robot/Superstructure/Intake/Indexer/Motor/Main",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Motor/Main",
+            "/Robot/Robot/Superstructure/EndEffector",
+            "/Robot/Robot/Superstructure/EndEffector/Pivot/Motor",
+            "/Robot/Robot/Superstructure/EndEffector/Roller",
+            "/Robot/Robot/Superstructure/EndEffector/Roller/Motor",
+            "/Robot/Robot/Superstructure/EndEffector/Roller/Motor/Main",
+            "/Robot/Robot/Superstructure/FourBarArm",
+            "/Robot/Robot/Superstructure/FourBarArm/Pivot",
+            "/Robot/Robot/Superstructure/FourBarArm/Pivot/Motor",
+            "/Robot/Robot/Superstructure/FourBarArm/Pivot/Motor/Main",
+            "/Robot/Pose",
+            "/Robot/Pose/translation",
+            "/Robot/Robot/Superstructure/Drivetrain/Left Motor/Main",
+            "/Robot/Robot/Superstructure/Drivetrain/Right Motor/Main",
+            "/Robot/Robot/Superstructure/Drivetrain",
+            "/Robot/Robot/Superstructure/Drivetrain/Right Motor/Followers",
+            "/Robot/Robot/Superstructure/Drivetrain/Right Motor/Followers/0",
+            "/Robot/Robot/Superstructure/Drivetrain/Left Motor/Followers",
+            "/Robot/Robot/Superstructure/Drivetrain/Left Motor/Followers/0",
+            "/Shuffleboard",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor/Main/Position",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor/Main/Supply Current",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Motor/Main/Supply Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Position",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Supply Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Supply Current",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Temperature",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Main/Velocity",
+            "/Robot/Robot/Superstructure/Example Arm/EndEffector",
+            "/Robot/Robot/Superstructure/Example Arm/EndEffector/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/EndEffector/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Arm/Wrist",
+            "/Robot/Robot/Superstructure/Example Arm/Wrist/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Arm/Wrist/Main/Position",
+            "/Robot/Robot/Superstructure/Example Arm/Wrist/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Arm/Wrist/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Climber/Climber/Main",
+            "/Robot/Robot/Superstructure/Example Climber/Climber/Main/Position",
+            "/Robot/Robot/Superstructure/Example Climber/Climber/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Climber/Climber/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Climber/Climber/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Main/Supply Voltage",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Intake/Rollers/Main",
+            "/Robot/Robot/Superstructure/Example Intake/Rollers/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Intake/Rollers/Main/Velocity",
+            "/Robot/Robot/Superstructure/Example Intake/Beam Break",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Main/Position",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Main/Velocity",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Shooter/Beam Break",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood/Main",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood/Main/Position",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder/Main",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder/Main/Velocity",
+            "/Robot/Robot/Superstructure/Example Arm/Elevator/Setpoint Value",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Homing",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Main",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Main/Supply Current",
+            "/Robot/Robot/Superstructure/Example Intake/Pivot/Setpoint Value",
+            "/Robot/Robot",
+            "/Robot/Robot/Superstructure/Drive/Modules/Back Left",
+            "/Robot/Robot/Superstructure/Drive/Modules/Back Left/Drive",
+            "/Robot/Robot/Superstructure/Example Shooter",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Shooter/Flywheel/Followers/0",
+            "/Robot/Robot/Superstructure/Example Shooter/Hood/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder",
+            "/Robot/Robot/Superstructure/Example Shooter/Feeder/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Vision/Latest Estimate",
+            "/SmartDashboard/[Limelight] limelight Enabled",
+            "/SmartDashboard/Alerts",
+            "/Robot/Robot/Superstructure/Vision/Latest Estimate/Pose",
+            "/Robot/Robot/Superstructure/Vision/Latest Estimate/Pose/translation",
+            "/Robot/Robot/Superstructure/Vision/Latest Estimate/Pose/rotation",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Homing",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Setpoint Value",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Main",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Main/Position",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Intake/Pivot/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Intake/Rollers/Setpoint Value",
+            "/Robot/Robot/Superstructure/Intake/Rollers/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Intake/Rollers/Main/Velocity",
+            "/Robot/Robot/Superstructure/Indexer/Belt/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Indexer/Belt/Main/Velocity",
+            "/Robot/Robot/Superstructure/Indexer/Belt/Setpoint Value",
+            "/Robot/Robot/Superstructure/Intake/Rollers",
+            "/Robot/Robot/Superstructure/Intake/Pivot",
+            "/Robot/Robot/Superstructure/Indexer/Stopper/Setpoint Value",
+            "/Robot/Robot/Superstructure/Indexer/Stopper/Main",
+            "/Robot/Robot/Superstructure/Indexer/Stopper/Main/Velocity",
+            "/Robot/Robot/Superstructure/Indexer/Stopper/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Indexer/Stopper",
+            "/Robot/Robot/Superstructure/Indexer/Feeder",
+            "/Robot/Robot/Superstructure/Indexer/Feeder/Setpoint Value",
+            "/Robot/Robot/Superstructure/Indexer/Feeder/Main",
+            "/Robot/Robot/Superstructure/Indexer/Feeder/Main/Velocity",
+            "/Robot/Robot/Superstructure/Indexer/Feeder/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure",
+            "/Robot/Robot/Superstructure/Shooter",
+            "/Robot/Robot/Superstructure/Shooter/Top Flywheel/Setpoint Value",
+            "/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Velocity",
+            "/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Shooter/Bottom Flywheel",
+            "/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Velocity",
+            "/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Setpoint Value",
+            "/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Stator Current",
+            "/Robot/Robot/Superstructure/Climber",
+            "/Robot/Robot/Superstructure/Climber/Climber",
+            "/Robot/Robot/Superstructure/Climber/Climber/Setpoint Value",
+            "/Robot/Robot/Superstructure/Climber/Climber/Main",
+            "/Robot/Robot/Superstructure/Climber/Climber/Main/Position",
+            "/Robot/Robot/Superstructure/Climber/Climber/Main/Stator Voltage",
+            "/Robot/Robot/Superstructure/Climber/Climber/Main/Stator Current"
+          ]
+        },
+        "tabs": {
+          "selected": 8,
+          "tabs": [
+            {
+              "type": 0,
+              "title": "",
+              "controller": null,
+              "controllerUUID": "3lksghaslqx837an5yhd0zty5g8fa1ag",
+              "renderer": "#/",
+              "controlsHeight": 0
+            },
+            {
+              "type": 2,
+              "title": "Odometry",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Drive/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Vision/Latest Estimate/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00"
+                    }
+                  }
+                ],
+                "game": "2025 Field (Welded)",
+                "bumpers": "auto",
+                "origin": "blue",
+                "orientation": 0,
+                "size": 30
+              },
+              "controllerUUID": "vmv609bcbaw2rz9t0j4ou1onwrwjsdy9",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Pivot",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Pivot/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Pivot/Main/Position/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Pivot/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Pivot/Main/Stator Current/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Pivot/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "7kmat5ll5l9kjjcmayhwasfen40y8xd7",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Roller",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Rollers/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Rollers/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Rollers/Main/Velocity/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Intake/Rollers/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "skphslg9yo2xbau66unpk58aw7fc6145",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Belt",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Belt/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Belt/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Belt/Main/Velocity/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Belt/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2dng555qzkpy3l4y8daatwnmooi1nj4i",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Feeder",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Feeder/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Feeder/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Feeder/Main/Velocity/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Indexer/Feeder/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "3fhis3wsn1g0fl4tg7ufs95r40zkgjp4",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Top",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Top Flywheel/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Velocity/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Top Flywheel/Main/Stator Current/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Top Flywheel/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "oqn3qji0xiztndgd8d2464lxg0nknbpn",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Bot",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Velocity/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Main/Stator Current/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Shooter/Bottom Flywheel/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "dilua5a3upthvywsh5k6ftllfopgq7pa",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "Climb",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Climber/Climber/Setpoint Value/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Climber/Climber/Main/Position/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Climber/Climber/Main/Stator Voltage/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Climber/Climber/Main/Stator Current/Value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "NT:/Robot/Robot/Superstructure/Climber/Climber/Setpoint Value/Units",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "w7nua7o9i4fvsdq87891h947y4li6oa4",
+              "renderer": null,
+              "controlsHeight": 200
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "4.1.6"
+}
