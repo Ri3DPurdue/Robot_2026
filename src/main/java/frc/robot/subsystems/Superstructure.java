@@ -9,6 +9,8 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.shooter.Shooter;
 
+import java.util.function.Supplier;
+
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -51,15 +53,19 @@ public class Superstructure implements Loggable {
         ).andThen(Commands.idle());
     }
 
-    public Command prepShot(Pose2d targetPose) {
+    public Command prepShot(Supplier<Pose2d> targetPose) {
         return Commands.parallel(
-            shooter.prepVariableShot(() -> drive.getShotDistance()),
+            shooter.prepVariableShot(() -> drive.getShotDistance(targetPose.get().getTranslation())),
             drive.alignDrive(ControlBoardConstants.driver, targetPose)
         );
     }
 
+    public Command prepFerryShot() {
+        return prepShot(() -> DriveConstants.getFerryPose().toPose2d());
+    } 
+
     public Command prepHubShot() {
-        return prepShot(DriveConstants.getHubPose().toPose2d());
+        return prepShot(() -> DriveConstants.getHubPose().toPose2d());
     }
 
     public Command stow() {

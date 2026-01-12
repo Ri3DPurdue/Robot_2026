@@ -1,6 +1,9 @@
 package frc.robot.subsystems.drive;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveModule;
@@ -13,12 +16,12 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.util.logging.Loggable;
@@ -74,21 +77,29 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             );
     }
 
-    public Distance getShotDistance() {
+    public Distance getShotDistance(Translation2d targetPose) {
         Pose2d drivePose = getState().Pose;
-        Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
-        double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
+        double centerToTargetMeters = drivePose.getTranslation().getDistance(targetPose);
         double centerToShooterMeters = DriveConstants.shooterSideOffset.in(Units.Meters);
-        double shooterIdealToHubMeters = Math.sqrt(Math.pow(centerToHubMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
-        return Units.Meters.of(shooterIdealToHubMeters);
+        double shooterToTargetMeters = Math.sqrt(Math.pow(centerToTargetMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
+        return Units.Meters.of(shooterToTargetMeters);
     }
 
-    public Command alignDrive(CommandXboxController controller, Pose2d targetPose) {
+    public Distance getShotDistance() {
+        return getShotDistance(DriveConstants.getHubPose().toPose2d().getTranslation());
+    }
+
+    public Distance getFerryDistance() {
+        return getShotDistance(DriveConstants.getFerryPose().toPose2d().getTranslation());
+    }
+
+    public Command alignDrive(CommandXboxController controller, Supplier<Pose2d> targetPoseSupplier) {
         return applyRequest(() -> {
             double controllerVelX = -controller.getLeftY();
             double controllerVelY = -controller.getLeftX();
 
             Pose2d drivePose = getState().Pose;
+            Pose2d targetPose = targetPoseSupplier.get();
             double shooterOffset = -DriveConstants.shooterSideOffset.in(Units.Meters);
             double targetDistance = drivePose.getTranslation().getDistance(targetPose.getTranslation());
             double shooterAngleRads = Math.acos(shooterOffset / targetDistance); 
