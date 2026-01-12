@@ -52,4 +52,13 @@ public class Superstructure implements Loggable {
             climber.stow()
         );
     }
+
+    public Command spit() {
+        return Commands.parallel(
+            intake.spit(),
+            indexer.spit(),
+            Commands.idle()
+        );
+    }
+    
 }
