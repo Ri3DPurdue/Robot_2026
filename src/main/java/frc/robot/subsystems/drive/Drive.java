@@ -17,6 +17,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.util.logging.Loggable;
@@ -96,15 +97,16 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             Rotation2d desiredCenterAngleFieldRelative = offsetFromHubDesiredAngle.plus(drivePose.relativeTo(hubPose).getTranslation().getAngle());
             Rotation2d currentAngle = drivePose.getRotation();
             
-            if ((Math.abs(currentAngle.minus(desiredCenterAngleFieldRelative).getDegrees()) < DriveConstants.epsilonAngleToGoal.in(Units.Degrees)) // if facing goal already
+            if ((Math.abs(
+                    currentAngle.minus(desiredCenterAngleFieldRelative).getDegrees()
+                    ) < DriveConstants.epsilonAngleToGoal.in(Units.Degrees)) // if facing goal already
                 && Math.hypot(controllerVelX, controllerVelY) < ControlBoardConstants.stickDeadband) {
-
+                    return new SwerveRequest.SwerveDriveBrake();
+                } else {
                 double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredCenterAngleFieldRelative.plus(Rotation2d.k180deg).getRadians());
                 return alignRequest.withVelocityX(controllerVelX * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
                 .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
-            } else {
-                return new SwerveRequest.SwerveDriveBrake();
             }
 
 
