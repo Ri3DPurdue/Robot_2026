@@ -14,11 +14,12 @@ public class Intake extends ComponentSubsystem {
     public Intake() {
         pivot = registerComponent("Pivot", PivotConstants.getComponent());
         roller = registerComponent("Rollers", RollerConstants.getComponent());
+        setDefaultCommand(stow());
     }
 
     public Command intake() {
         return withRequirement(
-            Commands.sequence(
+            Commands.parallel(
                 pivot.applyPositionSetpointCommandWithWait(PivotConstants.intakeSetpoint),
                 roller.applySetpointCommand(RollerConstants.inwardsSetpoint)
             )

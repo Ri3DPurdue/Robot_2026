@@ -7,6 +7,9 @@ import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.shooter.Shooter;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.util.logging.Loggable;
@@ -19,6 +22,15 @@ public class Superstructure implements Loggable {
     public final Indexer indexer = new Indexer();
     public final Shooter shooter = new Shooter();
     public final Climber climber = new Climber();
+
+
+    public Superstructure() {
+        NamedCommands.registerCommand("Intake", intake());
+        NamedCommands.registerCommand("Stop Intaking", intake.stow());
+        NamedCommands.registerCommand("Prep Shooting", prepScore());
+        NamedCommands.registerCommand("Shoot", shoot());
+        NamedCommands.registerCommand("Stow", stow());
+    }
 
     @Override
     public void log(String path) {
@@ -34,7 +46,7 @@ public class Superstructure implements Loggable {
         return Commands.parallel(
             indexer.intake(),
             intake.intake()
-        );
+        ).andThen(Commands.idle());
     }
 
     public Command prepScore() {
@@ -51,6 +63,10 @@ public class Superstructure implements Loggable {
             shooter.idleMotors(),
             climber.stow()
         );
+    }
+
+    public Command shoot() {
+        return indexer.feed();
     }
 
     public Command spit() {

@@ -71,6 +71,9 @@ public class RollerConstants {
      */
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
+        config.Slot0.kP = 1.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kV = 0.15;
         return config;
     }
 
