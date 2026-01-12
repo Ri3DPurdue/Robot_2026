@@ -1,6 +1,10 @@
 package frc.robot.controlBoard;
 
-import edu.wpi.first.math.geometry.Pose2d;
+import java.util.Optional;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Superstructure;
@@ -13,18 +17,21 @@ public class ControlBoard {
 
         // Controls
         s.drive.setDefaultCommand(s.drive.teleopDrive(driver));
-        driver.start().onTrue(Commands.runOnce(() -> s.drive.resetPose(new Pose2d())));
+        driver.start().onTrue(Commands.runOnce(() -> {
+            s.drive.resetRotation(DriverStation.getAlliance().equals(Optional.of(Alliance.Red)) ? Rotation2d.k180deg : Rotation2d.kZero);
+        }));
 
-        driver.rightBumper().onTrue(s.stow());
-        driver.leftBumper().whileTrue(s.intake());
+        driver.y().onTrue(s.spit().andThen(Commands.idle()));
+        driver.b().onTrue(s.stow());
+        driver.x().whileTrue(s.prepHubShot());
+        driver.a().whileTrue(s.prepFerryShot());
+        driver.leftTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.intake());
+        driver.rightTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.shoot());
 
-        driver.leftTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.prepScore());
-        driver.rightTrigger(ControlBoardConstants.triggerThreshold).onTrue(s.shoot());
-
-        driver.povUp().onTrue(s.climber.fullExtend());
-        driver.povLeft().onTrue(s.climber.partialExtend());
-        driver.povRight().onTrue(s.climber.pull());
-        driver.povDown().onTrue(s.climber.stow());
+        driver.povUp().whileTrue(s.climber.fullExtend());
+        driver.povLeft().whileTrue(s.climber.partialExtend());
+        driver.povRight().whileTrue(s.climber.pull());
+        driver.povDown().whileTrue(s.climber.stow());
 
     }
 }

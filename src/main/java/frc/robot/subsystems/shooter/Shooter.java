@@ -18,9 +18,10 @@ public class Shooter extends ComponentSubsystem {
     public Shooter() {
         topFlywheel = registerComponent("Top Flywheel", TopFlywheelConstants.getComponent());
         bottomFlywheel = registerComponent("Bottom Flywheel", BottomFlywheelConstants.getComponent());
+        setDefaultCommand(off());
     }
 
-    public Command idleMotors(){
+    public Command off(){
         return withRequirement(
             Commands.parallel(
                 topFlywheel.applySetpointCommand(TopFlywheelConstants.idleSetpoint),
@@ -29,11 +30,11 @@ public class Shooter extends ComponentSubsystem {
         );
     }
 
-    public Command lowVoltage(){
+    public Command steadyState(){
         return withRequirement(
             Commands.parallel(
-                topFlywheel.applySetpointCommand(TopFlywheelConstants.lowVoltageSetpoint),
-                bottomFlywheel.applySetpointCommand(BottomFlywheelConstants.lowVoltageSetpoint)
+                topFlywheel.applySetpointCommand(TopFlywheelConstants.steadyStateSetpoint),
+                bottomFlywheel.applySetpointCommand(BottomFlywheelConstants.steadyStateSetpoint)
             )
         );
     }

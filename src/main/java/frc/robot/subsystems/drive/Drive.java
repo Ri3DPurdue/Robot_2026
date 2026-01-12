@@ -1,6 +1,9 @@
 package frc.robot.subsystems.drive;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveModule;
@@ -10,8 +13,10 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
@@ -21,11 +26,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.util.logging.Loggable;
 import frc.lib.util.logging.Logger;
+import frc.robot.controlBoard.ControlBoardConstants;
 
 public class Drive extends CommandSwerveDrivetrain implements Loggable {
     private final SwerveRequest.FieldCentric teleopRequest = new SwerveRequest.FieldCentric()
-        .withDeadband(DriveConstants.maxSpeed * 0.1).withRotationalDeadband(DriveConstants.maxAngularRate * 0.1) // Add a 10% deadband
+        .withDeadband(DriveConstants.maxSpeed * ControlBoardConstants.stickDeadband).withRotationalDeadband(DriveConstants.maxAngularRate * ControlBoardConstants.stickDeadband) // Add a 10% deadband
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
+    private final SwerveRequest.FieldCentric alignRequest = new SwerveRequest.FieldCentric()
+        .withDeadband(DriveConstants.maxSpeed * 0.1) // Add a 10% deadband to translation only
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
     private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
 
     public Drive() {
@@ -66,31 +77,49 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             );
     }
 
-    public Distance getShotDistance() {
+    public Distance getShotDistance(Translation2d targetPose) {
         Pose2d drivePose = getState().Pose;
-        Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
-        double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
+        double centerToTargetMeters = drivePose.getTranslation().getDistance(targetPose);
         double centerToShooterMeters = DriveConstants.shooterSideOffset.in(Units.Meters);
-        double shooterIdealToHubMeters = Math.sqrt(Math.pow(centerToHubMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
-        return Units.Meters.of(shooterIdealToHubMeters);
+        double shooterToTargetMeters = Math.sqrt(Math.pow(centerToTargetMeters, 2.0) - Math.pow(centerToShooterMeters, 2.0));
+        return Units.Meters.of(shooterToTargetMeters);
     }
 
-    public Command alignDrive(CommandXboxController controller) {
-        return applyRequest(() -> {
-            Pose2d drivePose = getState().Pose;
-            double centerToShooterMeters = -DriveConstants.shooterSideOffset.in(Units.Meters);
-            Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
-            double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
-            double shooterToCenterToHubAngleRads = Math.acos(centerToShooterMeters / centerToHubMeters); 
-            Rotation2d shooterToCenterToHubAngle = Rotation2d.fromRadians(shooterToCenterToHubAngleRads);
-            Rotation2d offsetFromHubDesiredAngle = Rotation2d.kCCW_90deg.minus(shooterToCenterToHubAngle);
-            Rotation2d desiredCenterAngleFieldRelative = offsetFromHubDesiredAngle.plus(drivePose.relativeTo(hubPose).getTranslation().getAngle());
-            Rotation2d currentAngle = drivePose.getRotation();
-            double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredCenterAngleFieldRelative.plus(Rotation2d.k180deg).getRadians());
+    public Distance getShotDistance() {
+        return getShotDistance(DriveConstants.getHubPose().toPose2d().getTranslation());
+    }
 
-            return teleopRequest.withVelocityX(-controller.getLeftY() * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
-            .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
+    public Distance getFerryDistance() {
+        return getShotDistance(DriveConstants.getFerryPose().toPose2d().getTranslation());
+    }
+
+    public Command alignDrive(CommandXboxController controller, Supplier<Pose2d> targetPoseSupplier) {
+        return applyRequest(() -> {
+            double controllerVelX = -controller.getLeftY();
+            double controllerVelY = -controller.getLeftX();
+
+            Pose2d drivePose = getState().Pose;
+            Pose2d targetPose = targetPoseSupplier.get();
+            double shooterOffset = -DriveConstants.shooterSideOffset.in(Units.Meters);
+            double targetDistance = drivePose.getTranslation().getDistance(targetPose.getTranslation());
+            double shooterAngleRads = Math.acos(shooterOffset / targetDistance); 
+            Rotation2d shooterAngle = Rotation2d.fromRadians(shooterAngleRads);
+            Rotation2d offsetAngle = Rotation2d.kCCW_90deg.minus(shooterAngle);
+            Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
+            Rotation2d currentAngle = drivePose.getRotation();
+            Rotation2d deltaAngle = currentAngle.minus(desiredAngle);
+            double wrappedAngleDeg = MathUtil.inputModulus(deltaAngle.getDegrees(), -180.0, 180.0);
+
+            if (
+                (Math.abs(wrappedAngleDeg) < DriveConstants.epsilonAngleToGoal.in(Units.Degrees)) // if facing goal already
+                && Math.hypot(controllerVelX, controllerVelY) < ControlBoardConstants.stickDeadband) {
+                    return new SwerveRequest.SwerveDriveBrake();
+                } else {
+                double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredAngle.getRadians());
+                return alignRequest.withVelocityX(controllerVelX * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
+            }
         });
     }
 

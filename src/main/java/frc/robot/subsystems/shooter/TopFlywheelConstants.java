@@ -37,11 +37,11 @@ public class TopFlywheelConstants {
 
     // Notable points for system
     public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
-    public static final AngularVelocity spunDownVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
+    public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
 
     // Setpoints for notable points
     public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
-    public static final VelocitySetpoint lowVoltageSetpoint = new VelocitySetpoint(spunDownVelocity);
+    public static final VelocitySetpoint steadyStateSetpoint = new VelocitySetpoint(steadyStateVelocity);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
 
     // Information about motors driving system
@@ -77,16 +77,14 @@ public class TopFlywheelConstants {
             ? new TalonFXIO(
                 IDs.SHOOTER_TOP_FLYWHEEL.id,
                 IDs.SHOOTER_TOP_FLYWHEEL.bus,
-                getMainConfig(),
-                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+                getMainConfig()
                 )
             : new TalonFXIOSim(
                 IDs.SHOOTER_TOP_FLYWHEEL.id,
                 IDs.SHOOTER_TOP_FLYWHEEL.bus,
                 getMainConfig(),
                 getSimObject(),
-                gearing,
-                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+                gearing
             );
     }
 

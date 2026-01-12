@@ -7,4 +7,5 @@ public class ControlBoardConstants {
     public static final CommandXboxController operator = new CommandXboxController(1);
 
     public static final double triggerThreshold = 0.2;
+    public static final double stickDeadband = 0.1;
 }

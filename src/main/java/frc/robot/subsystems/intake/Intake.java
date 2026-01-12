@@ -8,13 +8,13 @@ import frc.lib.component.MotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
 
 public class Intake extends ComponentSubsystem {
-    private HomingServoMotorComponent<TalonFXIO> pivot;
-    private MotorComponent<TalonFXIO> roller;
+    private final HomingServoMotorComponent<TalonFXIO> pivot;
+    private final MotorComponent<TalonFXIO> roller;
 
     public Intake() {
         pivot = registerComponent("Pivot", PivotConstants.getComponent());
         roller = registerComponent("Rollers", RollerConstants.getComponent());
-        setDefaultCommand(stow());
+        setDefaultCommand(stow().andThen(Commands.idle()));
     }
 
     public Command intake() {

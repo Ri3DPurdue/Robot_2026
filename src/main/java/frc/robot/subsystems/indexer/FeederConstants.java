@@ -27,9 +27,13 @@ public class FeederConstants {
 
     // Notable points for system
     public static final Voltage feedVoltage = Volts.of(8.0);
-    
+    public static final Voltage intakeVoltage = Volts.of(2.0);
+    public static final Voltage spitVoltage = Volts.of(-8.0);
+
     // Setpoints for notable points
     public static final VoltageSetpoint feedSetpoint = new VoltageSetpoint(feedVoltage);
+    public static final VoltageSetpoint intakeSetpoint = new VoltageSetpoint(intakeVoltage);
+    public static final VoltageSetpoint spitSetpoint = new VoltageSetpoint(spitVoltage);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
     
     // Information about motors driving system

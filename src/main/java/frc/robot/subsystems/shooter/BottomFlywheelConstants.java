@@ -1,8 +1,6 @@
 package frc.robot.subsystems.shooter;
 
-import static edu.wpi.first.units.Units.Celsius;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.*;
 
 import java.util.ArrayList;
 
@@ -16,14 +14,12 @@ import edu.wpi.first.units.DistanceUnit;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import frc.lib.component.FlywheelMotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
 import frc.lib.io.motor.ctre.TalonFXIOSim;
 import frc.lib.io.motor.setpoints.IdleSetpoint;
 import frc.lib.io.motor.setpoints.VelocitySetpoint;
-import frc.lib.io.motor.setpoints.VoltageSetpoint;
 import frc.lib.mechanismSim.RollerSim;
 import frc.lib.mechanismSim.SimObject;
 import frc.lib.util.ConfigUtil;
@@ -40,15 +36,13 @@ public class BottomFlywheelConstants {
 
     // Notable points for system
     public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
-    public static final Voltage unjamVoltage = Units.Volts.of(-8.0); //TODO get actual voltage
-    public static final Voltage lowVoltage = Units.Volts.of(1); //TODO get actual voltage
+    public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
 
 
     // Setpoints for notable points
     public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
-    public static final VoltageSetpoint feedSetpoint = new VoltageSetpoint(unjamVoltage);
+    public static final VelocitySetpoint steadyStateSetpoint = new VelocitySetpoint(steadyStateVelocity);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
-    public static final VoltageSetpoint lowVoltageSetpoint = new VoltageSetpoint(lowVoltage);
 
 
     // Information about motors driving system
