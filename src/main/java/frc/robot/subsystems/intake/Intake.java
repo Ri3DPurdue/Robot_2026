@@ -14,7 +14,7 @@ public class Intake extends ComponentSubsystem {
     public Intake() {
         pivot = registerComponent("Pivot", PivotConstants.getComponent());
         roller = registerComponent("Rollers", RollerConstants.getComponent());
-        setDefaultCommand(stow());
+        setDefaultCommand(stow().andThen(Commands.idle()));
     }
 
     public Command intake() {

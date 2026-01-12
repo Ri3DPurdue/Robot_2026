@@ -17,7 +17,7 @@ public class Indexer extends ComponentSubsystem {
         belt = registerComponent("Belt", BeltConstants.getComponent());
         stopper = registerComponent("Feeder", FeederConstants.getComponent());
         beamBreak = registerComponent("Beam Break", BeamBreakConstants.getComponent());
-
+        setDefaultCommand(idle().andThen(Commands.idle()));
     }
 
     public Command intake() {
@@ -25,9 +25,9 @@ public class Indexer extends ComponentSubsystem {
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.intakeSetpoint),
                 Commands.sequence(
-                    stopper.applySetpointCommand(FeederConstants.intakeSetpoint)
-                        .onlyWhile(beamBreak::getDebounced)
-                        .onlyIf(beamBreak::getDebounced),
+                    stopper.applySetpointCommand(FeederConstants.intakeSetpoint).andThen(Commands.idle())
+                        .unless(beamBreak::getDebounced)
+                        .until(beamBreak::getDebounced),
                     stopper.applySetpointCommand(FeederConstants.idleSetpoint)
                 )
             )
