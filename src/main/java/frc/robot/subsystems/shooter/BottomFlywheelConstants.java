@@ -46,7 +46,7 @@ public class BottomFlywheelConstants {
 
 
     // Information about motors driving system
-    public static final DCMotor motor = DCMotor.getKrakenX60(2); // Only needed for sim
+    public static final DCMotor motor = DCMotor.getKrakenX60(1); // Only needed for sim
 
     private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
         ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();

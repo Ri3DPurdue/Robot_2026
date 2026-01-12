@@ -32,6 +32,7 @@ public class Superstructure implements Loggable {
         NamedCommands.registerCommand("Intake", intake());
         NamedCommands.registerCommand("Stop Intaking", intake.stow());
         NamedCommands.registerCommand("Prep Shooting", prepHubShot());
+        NamedCommands.registerCommand("Prep No Turn", shooter.prepVariableShot(() -> drive.getShotDistance(DriveConstants.getHubPose().toPose2d().getTranslation())));
         NamedCommands.registerCommand("Shoot", shoot());
         NamedCommands.registerCommand("Stow", stow());
     }

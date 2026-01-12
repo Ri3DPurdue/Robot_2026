@@ -21,7 +21,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.util.logging.Loggable;
@@ -61,7 +60,8 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
                 ),
                 config,
                 // Assume the path needs to be flipped for Red vs Blue, this is normally the case
-                () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+                // () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+                () -> false, // pathplanner doesn't seem to flip paths correctly for the red alliance, so we're manually making two paths
                 this // Subsystem for requirements
             );
         } catch (Exception ex) {
@@ -106,6 +106,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             Rotation2d shooterAngle = Rotation2d.fromRadians(shooterAngleRads);
             Rotation2d offsetAngle = Rotation2d.kCCW_90deg.minus(shooterAngle);
             Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
+            desiredAngle = desiredAngle.plus(Rotation2d.k180deg);
             Rotation2d currentAngle = drivePose.getRotation();
             Rotation2d deltaAngle = currentAngle.minus(desiredAngle);
             double wrappedAngleDeg = MathUtil.inputModulus(deltaAngle.getDegrees(), -180.0, 180.0);
