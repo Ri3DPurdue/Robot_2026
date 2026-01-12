@@ -9,13 +9,13 @@ import frc.lib.io.motor.ctre.TalonFXIO;
 
 public class Indexer extends ComponentSubsystem {
     private final MotorComponent<TalonFXIO> belt;
-    private final MotorComponent<TalonFXIO> stopper;
+    private final MotorComponent<TalonFXIO> feeder;
     private final DigitalIOComponent beamBreak;
 
 
     public Indexer() {
         belt = registerComponent("Belt", BeltConstants.getComponent());
-        stopper = registerComponent("Feeder", FeederConstants.getComponent());
+        feeder = registerComponent("Feeder", FeederConstants.getComponent());
         beamBreak = registerComponent("Beam Break", BeamBreakConstants.getComponent());
         setDefaultCommand(idle().andThen(Commands.idle()));
     }
@@ -25,10 +25,10 @@ public class Indexer extends ComponentSubsystem {
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.intakeSetpoint),
                 Commands.sequence(
-                    stopper.applySetpointCommand(FeederConstants.intakeSetpoint).andThen(Commands.idle())
+                    feeder.applySetpointCommand(FeederConstants.intakeSetpoint).andThen(Commands.idle())
                         .unless(beamBreak::getDebounced)
                         .until(beamBreak::getDebounced),
-                    stopper.applySetpointCommand(FeederConstants.idleSetpoint)
+                    feeder.applySetpointCommand(FeederConstants.idleSetpoint)
                 )
             )
         );
@@ -38,7 +38,7 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.idleSetpoint),
-                stopper.applySetpointCommand(FeederConstants.idleSetpoint)
+                feeder.applySetpointCommand(FeederConstants.idleSetpoint)
             )
         );    
     }
@@ -47,7 +47,7 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.feedSetpoint),
-                stopper.applySetpointCommand(FeederConstants.feedSetpoint)
+                feeder.applySetpointCommand(FeederConstants.feedSetpoint)
             )
         );    
     }
@@ -56,7 +56,7 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.spitSetpoint),
-                stopper.applySetpointCommand(FeederConstants.spitSetpoint)
+                feeder.applySetpointCommand(FeederConstants.spitSetpoint)
             )
         );    
     }

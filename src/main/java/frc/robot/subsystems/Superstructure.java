@@ -49,11 +49,12 @@ public class Superstructure implements Loggable {
     public Command intake() {
         return Commands.parallel(
             indexer.intake(),
-            intake.intake()
-        ).andThen(Commands.idle());
+            intake.intake(),
+            Commands.idle()
+        );
     }
 
-    public Command prepShot(Supplier<Pose2d> targetPose) {
+    private Command prepShot(Supplier<Pose2d> targetPose) {
         return Commands.parallel(
             shooter.prepVariableShot(() -> drive.getShotDistance(targetPose.get().getTranslation())),
             drive.alignDrive(ControlBoardConstants.driver, targetPose)
@@ -72,13 +73,16 @@ public class Superstructure implements Loggable {
         return Commands.parallel(
             intake.stow(),
             indexer.idle(),
-            shooter.idleMotors(),
+            shooter.off(),
             climber.stow()
         );
     }
 
     public Command shoot() {
-        return indexer.feed();
+        return Commands.parallel(
+            indexer.feed(),
+            Commands.idle()
+        );
     }
 
     public Command spit() {

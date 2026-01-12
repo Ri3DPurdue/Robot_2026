@@ -19,6 +19,6 @@ public class BeamBreakConstants {
     public static final DigitalIO getBeamBreakIO() {
         return Robot.isReal()
          ? new DigitalInIO(beamBreakDebounceSeconds, IDs.INTAKE_BEAM_BREAK.id)
-         : new DigitalBooleanSupplierIO(beamBreakDebounceSeconds, ControlBoardConstants.driver.povLeft()); // Simulate the breambreak with a controller button
+         : new DigitalBooleanSupplierIO(beamBreakDebounceSeconds, ControlBoardConstants.driver.back()); // Simulate the breambreak with a controller button
     }
 }
