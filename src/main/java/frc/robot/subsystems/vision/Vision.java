@@ -35,10 +35,11 @@ public class Vision extends SubsystemBase implements Loggable{
     }
 
     public void addLatestEstimate() {
-        double currentTimeSeconds = Utils.getCurrentTimeSeconds();
+        double currentTimeSeconds = Timer.getFPGATimestamp();
         PoseEstimate latestEstimate = getLatestEstimate();
         if (shouldAcceptEstimate(latestEstimate)) {
             double estimateTimeSeconds = currentTimeSeconds + latestEstimate.latencySeconds();
+
             visionUpdater.accept(latestEstimate.pose(), estimateTimeSeconds);
         }
     }
