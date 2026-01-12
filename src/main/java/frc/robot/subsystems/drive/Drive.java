@@ -83,21 +83,20 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
         return Units.Meters.of(shooterIdealToHubMeters);
     }
 
-    public Command alignDrive(CommandXboxController controller) {
+    public Command alignDrive(CommandXboxController controller, Pose2d targetPose) {
         return applyRequest(() -> {
             double controllerVelX = -controller.getLeftY();
             double controllerVelY = -controller.getLeftX();
 
             Pose2d drivePose = getState().Pose;
-            double centerToShooterMeters = -DriveConstants.shooterSideOffset.in(Units.Meters);
-            Pose2d hubPose = DriveConstants.getHubPose().toPose2d();
-            double centerToHubMeters = drivePose.getTranslation().getDistance(hubPose.getTranslation());
-            double shooterToCenterToHubAngleRads = Math.acos(centerToShooterMeters / centerToHubMeters); 
-            Rotation2d shooterToCenterToHubAngle = Rotation2d.fromRadians(shooterToCenterToHubAngleRads);
-            Rotation2d offsetFromHubDesiredAngle = Rotation2d.kCCW_90deg.minus(shooterToCenterToHubAngle);
-            Rotation2d desiredCenterAngleFieldRelative = offsetFromHubDesiredAngle.plus(drivePose.relativeTo(hubPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
+            double shooterOffset = -DriveConstants.shooterSideOffset.in(Units.Meters);
+            double targetDistance = drivePose.getTranslation().getDistance(targetPose.getTranslation());
+            double shooterAngleRads = Math.acos(shooterOffset / targetDistance); 
+            Rotation2d shooterAngle = Rotation2d.fromRadians(shooterAngleRads);
+            Rotation2d offsetAngle = Rotation2d.kCCW_90deg.minus(shooterAngle);
+            Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
             Rotation2d currentAngle = drivePose.getRotation();
-            Rotation2d deltaAngle = currentAngle.minus(desiredCenterAngleFieldRelative);
+            Rotation2d deltaAngle = currentAngle.minus(desiredAngle);
             double wrappedAngleDeg = MathUtil.inputModulus(deltaAngle.getDegrees(), -180.0, 180.0);
 
             if (
@@ -105,14 +104,11 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
                 && Math.hypot(controllerVelX, controllerVelY) < ControlBoardConstants.stickDeadband) {
                     return new SwerveRequest.SwerveDriveBrake();
                 } else {
-                double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredCenterAngleFieldRelative.getRadians());
+                double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredAngle.getRadians());
                 return alignRequest.withVelocityX(controllerVelX * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
                 .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
             }
-
-
-            
         });
     }
 
