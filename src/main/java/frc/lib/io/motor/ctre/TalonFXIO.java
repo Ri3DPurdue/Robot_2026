@@ -95,7 +95,7 @@ public class TalonFXIO extends MotorIO {
 
     @Override
     protected void setCurrent(Current current) {
-        throw new UnsupportedOperationException("TalonFX does not support current control without Phoenix Pro");
+        // throw new UnsupportedOperationException("TalonFX does not support current control without Phoenix Pro");
     }
 
     @Override

@@ -1,5 +1,7 @@
 package frc.robot.subsystems.drive;
 
+import static edu.wpi.first.units.Units.Degrees;
+
 import java.util.Optional;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -8,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -24,9 +27,20 @@ public class DriveConstants {
     public static final Pose3d redHubPose = new Pose3d(Units.Inches.of(468.56), Units.Inches.of(158.32), Units.Inches.of(72.0), new Rotation3d());
     public static final Pose3d blueHubPose = new Pose3d(Units.Inches.of(152.56), Units.Inches.of(158.32),  Units.Inches.of(72.0), new Rotation3d());
 
+    public static final Pose3d redFerryPose = new Pose3d(14.3, 4.02, 0, Rotation3d.kZero);
+    public static final Pose3d blueFerryPose = new Pose3d(2.1, 4.02, 0, Rotation3d.kZero);
+
+    public static final Angle epsilonAngleToGoal = Degrees.of(1.0);
+
     public static final Pose3d getHubPose() {
         Pose3d pose = DriverStation.getAlliance().equals(Optional.of(Alliance.Red)) ? redHubPose : blueHubPose;
         Logger.log("HUB POSE", pose);
+        return pose;
+    }
+
+    public static final Pose3d getFerryPose() {
+        Pose3d pose = DriverStation.getAlliance().equals(Optional.of(Alliance.Red)) ? redFerryPose : blueFerryPose;
+        Logger.log("Ferry Pose", pose);
         return pose;
     }
 

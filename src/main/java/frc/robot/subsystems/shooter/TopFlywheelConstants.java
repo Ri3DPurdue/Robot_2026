@@ -32,16 +32,15 @@ public class TopFlywheelConstants {
     // Epsilon threshold is velocity that is considered "close" for internal methods and wait commands. Lower value is higher required accuracy
     public static final AngularVelocity epsilonThreshold = Units.RPM.of(100); //TODO get actual threshold
     
-    // Gearing is a 48 to 40 reduction
-    public static final double gearing = 1.0; //TODO get actual gearing
+    public static final double gearing = 1./2;
 
     // Notable points for system
     public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
-    public static final AngularVelocity spunDownVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
+    public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
 
     // Setpoints for notable points
     public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
-    public static final VelocitySetpoint lowVoltageSetpoint = new VelocitySetpoint(spunDownVelocity);
+    public static final VelocitySetpoint steadyStateSetpoint = new VelocitySetpoint(steadyStateVelocity);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
 
     // Information about motors driving system
@@ -77,16 +76,14 @@ public class TopFlywheelConstants {
             ? new TalonFXIO(
                 IDs.SHOOTER_TOP_FLYWHEEL.id,
                 IDs.SHOOTER_TOP_FLYWHEEL.bus,
-                getMainConfig(),
-                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+                getMainConfig()
                 )
             : new TalonFXIOSim(
                 IDs.SHOOTER_TOP_FLYWHEEL.id,
                 IDs.SHOOTER_TOP_FLYWHEEL.bus,
                 getMainConfig(),
                 getSimObject(),
-                gearing,
-                Pair.of(IDs.SHOOTER_TOP_FLYWHEEL.id, false)
+                gearing
             );
     }
 
