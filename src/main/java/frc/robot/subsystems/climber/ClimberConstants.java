@@ -1,5 +1,7 @@
 package frc.robot.subsystems.climber;
 
+import static edu.wpi.first.units.Units.Meters;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.Units;
@@ -19,16 +21,14 @@ import frc.robot.Robot;
 public class ClimberConstants {
     // Create a converter to convert linear distances of the climber into rotations of the pulley
     public static final DistanceAngleConverter converter = new DistanceAngleConverter(
-            Units.Inches.of(4.0) // Diameter of pulley
-            .plus(Units.Inches.of(0.25)) // Diameter of rope
+            Units.Inches.of(1.2) // Diameter of sproket
             .div(2.0) // Divide by 2 to get radius
         );
 
     // Epsilon threshold is distance that is considered "close" for internal methods and wait commands. Lower value is higher required accuracy
     public static final Distance epsilonThreshold = Units.Centimeters.of(2.0);
     
-    // Gearing is a 5 to 1 reduction followed by a 2 to 1 reduction
-    public static final double gearing = (5.0 / 1.0) * (2.0 / 1.0);
+    public static final double gearing = 16;
     
     // Constraints of the system's movement (hard stops, potential interferences, soft limits, etc.)
     public static final Distance minDistance = Units.Inches.of(0.0);
@@ -99,7 +99,7 @@ public class ClimberConstants {
                 motor, 
                 gearing, 
                 4.0, 
-                0.1, 
+                converter.getDrumRadius().in(Units.Meters), 
                 minDistance.in(Units.Meters), 
                 maxDistance.in(Units.Meters), 
                 false,
