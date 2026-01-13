@@ -11,7 +11,8 @@ public enum IDs {
     SHOOTER_TOP_FLYWHEEL(30, "canivore1"),
     SHOOTER_BOTTOM_FLYWHEEL(31, "canivore1"),
     CLIMBER_MAIN(40, "canivore1"),
-    
+    CLIMBER_FOLLOWER(41, "canivore1"),
+
     // Rio Digital Ports
     INTAKE_BEAM_BREAK(0, "Rio Digital In");
 

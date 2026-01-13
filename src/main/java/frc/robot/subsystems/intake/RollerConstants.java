@@ -1,6 +1,8 @@
 package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
+
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.Units;
@@ -73,6 +75,8 @@ public class RollerConstants {
         config.Slot0.kP = 1.0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.15;
+
+        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         return config;
     }
 
