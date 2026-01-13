@@ -49,8 +49,8 @@ public class TopFlywheelConstants {
     private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
         ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
 
-        a.add(Pair.of(Units.Inches.of(232.0), Units.RPM.of(4000)));
         a.add(Pair.of(Units.Inches.of(112.0), Units.RPM.of(2900)));
+        a.add(Pair.of(Units.Inches.of(94.0), Units.RPM.of(1200)));
 
         return a;
     }

@@ -35,6 +35,7 @@ public class ControlBoard {
 
         driver.povUp().onTrue(s.shooter.prepBasicShot());
         driver.povDown().onTrue(s.shooter.test());
+        driver.povLeft().onTrue(s.shooter.prepVariableShot(s.drive::getShotDistance));
 
     }
 }
