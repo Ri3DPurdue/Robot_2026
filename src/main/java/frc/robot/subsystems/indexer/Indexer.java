@@ -18,6 +18,8 @@ public class Indexer extends ComponentSubsystem {
         feeder = registerComponent("Feeder", FeederConstants.getComponent());
         beamBreak = registerComponent("Beam Break", BeamBreakConstants.getComponent());
         setDefaultCommand(idle().andThen(Commands.idle()));
+        feeder.disable();
+        belt.disable();
     }
 
     public Command intake() {

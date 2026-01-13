@@ -3,18 +3,20 @@ package frc.robot.subsystems.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.component.ComponentSubsystem;
-import frc.lib.component.HomingServoMotorComponent;
+import frc.lib.component.ServoMotorComponent;
 import frc.lib.component.MotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
 
 public class Intake extends ComponentSubsystem {
-    private final HomingServoMotorComponent<TalonFXIO> pivot;
+    private final ServoMotorComponent<TalonFXIO> pivot;
     private final MotorComponent<TalonFXIO> roller;
 
     public Intake() {
         pivot = registerComponent("Pivot", PivotConstants.getComponent());
         roller = registerComponent("Rollers", RollerConstants.getComponent());
         setDefaultCommand(stow().andThen(Commands.idle()));
+
+        roller.disable();
     }
 
     public Command intake() {

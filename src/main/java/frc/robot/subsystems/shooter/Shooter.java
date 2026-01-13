@@ -19,6 +19,8 @@ public class Shooter extends ComponentSubsystem {
         topFlywheel = registerComponent("Top Flywheel", TopFlywheelConstants.getComponent());
         bottomFlywheel = registerComponent("Bottom Flywheel", BottomFlywheelConstants.getComponent());
         setDefaultCommand(off());
+
+        bottomFlywheel.disable();
     }
 
     public Command off(){

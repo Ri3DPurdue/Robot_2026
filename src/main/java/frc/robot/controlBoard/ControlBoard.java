@@ -28,10 +28,12 @@ public class ControlBoard {
         driver.leftTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.intake());
         driver.rightTrigger(ControlBoardConstants.triggerThreshold).whileTrue(s.shoot());
 
-        driver.povUp().whileTrue(s.climber.fullExtend());
-        driver.povLeft().whileTrue(s.climber.partialExtend());
-        driver.povRight().whileTrue(s.climber.pull());
-        driver.povDown().whileTrue(s.climber.stow());
+        // driver.povUp().whileTrue(s.climber.fullExtend());
+        // driver.povLeft().whileTrue(s.climber.partialExtend());
+        // driver.povRight().whileTrue(s.climber.pull());
+        // driver.povDown().whileTrue(s.climber.stow());
+
+        driver.povUp().onTrue(s.shooter.prepBasicShot());
 
     }
 }

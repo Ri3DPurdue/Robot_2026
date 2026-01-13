@@ -35,7 +35,7 @@ public class TopFlywheelConstants {
     public static final double gearing = 1./2;
 
     // Notable points for system
-    public static final AngularVelocity shotVelocity = Units.RPM.of(2000.0); //TODO get actual velocity
+    public static final AngularVelocity shotVelocity = Units.RPM.of(8000.0); //TODO get actual velocity
     public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
 
     // Setpoints for notable points
@@ -93,9 +93,9 @@ public class TopFlywheelConstants {
      */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-        config.Slot0.kP = 1.0;
+        config.Slot0.kP = 0.0;
         config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.15;
+        config.Slot0.kV = 0.0;
 
         return config;    
     }

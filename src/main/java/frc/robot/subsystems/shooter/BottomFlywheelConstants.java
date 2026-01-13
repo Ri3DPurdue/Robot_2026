@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.*;
 import java.util.ArrayList;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -94,9 +95,11 @@ public class BottomFlywheelConstants {
      */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-        config.Slot0.kP = 1.0;
+        config.Slot0.kP = 0.0;
         config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.15;
+        config.Slot0.kV = 0.0;
+
+        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
         return config;    
     }
