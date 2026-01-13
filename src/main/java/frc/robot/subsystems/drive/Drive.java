@@ -73,7 +73,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
         return applyRequest(() ->
                 teleopRequest.withVelocityX(-controller.getLeftY() * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
                     .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-controller.getRightX() * DriveConstants.maxAngularRate) // Drive counterclockwise with negative X (left)
+                    .withRotationalRate(controller.getRightX() * DriveConstants.maxAngularRate) // Drive counterclockwise with negative X (left)
             );
     }
 
@@ -106,7 +106,6 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             Rotation2d shooterAngle = Rotation2d.fromRadians(shooterAngleRads);
             Rotation2d offsetAngle = Rotation2d.kCCW_90deg.minus(shooterAngle);
             Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
-            desiredAngle = desiredAngle.plus(Rotation2d.k180deg);
             Rotation2d currentAngle = drivePose.getRotation();
             Rotation2d deltaAngle = currentAngle.minus(desiredAngle);
             double wrappedAngleDeg = MathUtil.inputModulus(deltaAngle.getDegrees(), -180.0, 180.0);
@@ -119,7 +118,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
                 double rotationalRate = DriveConstants.rotationController.calculate(currentAngle.getRadians(), desiredAngle.getRadians());
                 return alignRequest.withVelocityX(controllerVelX * DriveConstants.maxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(-controller.getLeftX() * DriveConstants.maxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
+                .withRotationalRate(-rotationalRate * DriveConstants.maxAngularRate); // Use angular rate for rotation
             }
         });
     }
@@ -128,6 +127,8 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
     public void log(String path) {
         logPose(path);
         logModules(path + "/Modules");
+        Logger.log("DISTANCE", getShotDistance());
+        Logger.log(path, "GYRO ANGLE", getPigeon2().getRotation2d().getDegrees());
     }
 
     public void logPose(String path) {

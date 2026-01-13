@@ -25,7 +25,7 @@ public class Superstructure implements Loggable {
     public final Intake intake = new Intake();
     public final Indexer indexer = new Indexer();
     public final Shooter shooter = new Shooter();
-    public final Climber climber = new Climber();
+    // public final Climber climber = new Climber();
 
 
     public Superstructure() {
@@ -44,7 +44,7 @@ public class Superstructure implements Loggable {
         Logger.log(path, "Intake", intake);
         Logger.log(path, "Indexer", indexer);
         Logger.log(path, "Shooter", shooter);
-        Logger.log(path, "Climber", climber);
+        // Logger.log(path, "Climber", climber);
     }
 
     public Command intake() {
@@ -74,8 +74,8 @@ public class Superstructure implements Loggable {
         return Commands.parallel(
             intake.stow(),
             indexer.idle(),
-            shooter.off(),
-            climber.stow()
+            shooter.off()//,
+            // climber.stow()
         );
     }
 

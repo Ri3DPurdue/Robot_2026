@@ -35,7 +35,7 @@ public class TopFlywheelConstants {
     public static final double gearing = 1./2;
 
     // Notable points for system
-    public static final AngularVelocity shotVelocity = Units.RPM.of(8000.0); //TODO get actual velocity
+    public static final AngularVelocity shotVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
     public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
 
     // Setpoints for notable points
@@ -49,9 +49,8 @@ public class TopFlywheelConstants {
     private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
         ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
 
-        a.add(Pair.of(Units.Inches.of(0.0), Units.RPM.of(100)));
-        a.add(Pair.of(Units.Inches.of(12.0), Units.RPM.of(1000)));
-        a.add(Pair.of(Units.Inches.of(36.0), Units.RPM.of(1500)));
+        a.add(Pair.of(Units.Inches.of(232.0), Units.RPM.of(4000)));
+        a.add(Pair.of(Units.Inches.of(112.0), Units.RPM.of(2900)));
 
         return a;
     }
@@ -93,9 +92,9 @@ public class TopFlywheelConstants {
      */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-        config.Slot0.kP = 0.0;
+        config.Slot0.kP = 0.1;
         config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.0;
+        config.Slot0.kV = 0.058;
 
         return config;    
     }

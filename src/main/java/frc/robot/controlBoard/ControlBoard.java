@@ -34,6 +34,7 @@ public class ControlBoard {
         // driver.povDown().whileTrue(s.climber.stow());
 
         driver.povUp().onTrue(s.shooter.prepBasicShot());
+        driver.povDown().onTrue(s.shooter.test());
 
     }
 }

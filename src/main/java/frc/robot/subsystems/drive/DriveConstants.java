@@ -47,7 +47,7 @@ public class DriveConstants {
     public static final PIDController rotationController = getRotationController();
 
     private static final PIDController getRotationController() {
-        PIDController controller = new PIDController(2.0, 0.0, 0.0);
+        PIDController controller = new PIDController(1.0, 0.0, 0.0);
         controller.enableContinuousInput(-Math.PI, Math.PI);
         return controller;
     }
