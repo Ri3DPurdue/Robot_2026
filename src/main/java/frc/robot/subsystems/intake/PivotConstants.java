@@ -23,7 +23,7 @@ public class PivotConstants {
     public static final Angle epsilonThreshold = Units.Degrees.of(5.0);
     
     // TODO: Update gearing
-    public static final double gearing = 1.0; 
+    public static final double gearing = 5.; 
     
     // TODO: Update limits
     public static final Angle minAngle = Units.Degrees.of(-10.0);
