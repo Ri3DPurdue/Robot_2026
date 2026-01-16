@@ -79,7 +79,8 @@ public class BeltConstants {
     */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-
+        config.CurrentLimits.StatorCurrentLimit = 80.0;
+        config.CurrentLimits.SupplyCurrentLimit = 60.0;
         return config;    
     }
 

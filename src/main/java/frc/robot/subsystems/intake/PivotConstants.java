@@ -24,14 +24,14 @@ public class PivotConstants {
     public static final Angle epsilonThreshold = Units.Degrees.of(5.0);
     
     // TODO: Update gearing
-    public static final double gearing = 5.; 
+    public static final double gearing = 5.0; 
     
     // TODO: Update limits
-    public static final Angle minAngle = Units.Degrees.of(14.5);
+    public static final Angle minAngle = Units.Degrees.of(34.0);
     public static final Angle maxAngle = Units.Degrees.of(89.0);
 
     // TODO: Find actual positions
-    public static final Angle intakeAngle = Units.Degrees.of(14.5);
+    public static final Angle intakeAngle = Units.Degrees.of(34.0);
     public static final Angle stowAngle = maxAngle;
     public static final Angle spitAngle = Units.Degrees.of(25.0);
     
