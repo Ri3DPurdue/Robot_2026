@@ -2,6 +2,7 @@ package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -25,7 +26,7 @@ public class RollerConstants {
     public static final double gearing = 42./18;
 
     // TODO: Find actual voltages
-    public static final Voltage intakeVoltage = Units.Volts.of(8.0);
+    public static final Voltage intakeVoltage = Units.Volts.of(4.0);
     public static final Voltage spitVoltage = Units.Volts.of(-6.0);
 
     public static final VoltageSetpoint inwardsSetpoint = new VoltageSetpoint(intakeVoltage);
@@ -72,6 +73,7 @@ public class RollerConstants {
      */
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
+        config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Slot0.kP = 1.0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.15;

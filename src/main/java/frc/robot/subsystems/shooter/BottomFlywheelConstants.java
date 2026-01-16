@@ -51,10 +51,10 @@ public class BottomFlywheelConstants {
     private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
         ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
 
-        a.add(Pair.of(Units.Meters.of(4.26), Units.RPM.of(2700)));
-        a.add(Pair.of(Units.Meters.of(3.6), Units.RPM.of(2200)));
-        a.add(Pair.of(Units.Inches.of(112.0), Units.RPM.of(2200)));
-        a.add(Pair.of(Units.Inches.of(94.0), Units.RPM.of(3500)));
+        a.add(Pair.of(Units.Meters.of(2.75 + 1.0), Units.RPM.of(2250)));
+        a.add(Pair.of(Units.Meters.of(3.02 + 1.0), Units.RPM.of(2300)));
+        a.add(Pair.of(Units.Meters.of(3.26 + 1.0), Units.RPM.of(2500)));
+        a.add(Pair.of(Units.Meters.of(3.52 + 1.0), Units.RPM.of(2550)));
 
         return a;
     }
@@ -66,8 +66,8 @@ public class BottomFlywheelConstants {
      */ 
     public static final FlywheelMotorComponent<TalonFXIO> getComponent() {
         TalonFXIO io =  getMotorIO();
-        io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
-        return new FlywheelMotorComponent<TalonFXIO>(getMotorIO(), epsilonThreshold);
+        io.overrideLoggedUnits(Rotations, RPM, Celsius);
+        return new FlywheelMotorComponent<TalonFXIO>(io, epsilonThreshold);
     }
 
     /**

@@ -28,7 +28,7 @@ public class FeederConstants {
     public static final double gearing = 1.0;
 
     // Notable points for system
-    public static final Voltage feedVoltage = Volts.of(6.0);
+    public static final Voltage feedVoltage = Volts.of(4.0);
     public static final Voltage intakeVoltage = Volts.of(2.0);
     public static final Voltage spitVoltage = Volts.of(-8.0);
 

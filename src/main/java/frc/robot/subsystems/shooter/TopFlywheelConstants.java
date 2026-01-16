@@ -1,8 +1,8 @@
 package frc.robot.subsystems.shooter;
 
 import static edu.wpi.first.units.Units.Celsius;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
 
 import java.util.ArrayList;
 
@@ -49,10 +49,10 @@ public class TopFlywheelConstants {
     private static ArrayList<Pair<Distance, AngularVelocity>> getInterpolableData() {
         ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
         
-        a.add(Pair.of(Units.Meters.of(4.26), Units.RPM.of(3300)));
-        a.add(Pair.of(Units.Meters.of(3.6), Units.RPM.of(2900)));
-        a.add(Pair.of(Units.Inches.of(112.0), Units.RPM.of(2900)));
-        a.add(Pair.of(Units.Inches.of(94.0), Units.RPM.of(1200)));
+        a.add(Pair.of(Units.Meters.of(2.75 + 1.0), Units.RPM.of(2650)));
+        a.add(Pair.of(Units.Meters.of(3.02 + 1.0), Units.RPM.of(2800)));
+        a.add(Pair.of(Units.Meters.of(3.26 + 1.0), Units.RPM.of(3200)));
+        a.add(Pair.of(Units.Meters.of(3.52 + 1.0), Units.RPM.of(3300)));
 
         return a;
     }
@@ -64,8 +64,8 @@ public class TopFlywheelConstants {
      */ 
     public static final FlywheelMotorComponent<TalonFXIO> getComponent() {
         TalonFXIO io =  getMotorIO();
-        io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
-        return new FlywheelMotorComponent<TalonFXIO>(getMotorIO(), epsilonThreshold);
+        io.overrideLoggedUnits(Rotations, RPM, Celsius);
+        return new FlywheelMotorComponent<TalonFXIO>(io, epsilonThreshold);
     }
 
     /**

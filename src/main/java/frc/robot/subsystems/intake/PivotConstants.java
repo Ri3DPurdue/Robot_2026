@@ -2,6 +2,7 @@ package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.GravityTypeValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.Units;
@@ -27,11 +28,11 @@ public class PivotConstants {
     public static final double gearing = 5.0; 
     
     // TODO: Update limits
-    public static final Angle minAngle = Units.Degrees.of(34.0);
+    public static final Angle minAngle = Units.Degrees.of(23.0);
     public static final Angle maxAngle = Units.Degrees.of(89.0);
 
     // TODO: Find actual positions
-    public static final Angle intakeAngle = Units.Degrees.of(34.0);
+    public static final Angle intakeAngle = Units.Degrees.of(25.0);
     public static final Angle stowAngle = maxAngle;
     public static final Angle spitAngle = Units.Degrees.of(25.0);
     
@@ -76,9 +77,10 @@ public class PivotConstants {
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
         ConfigUtil.withSoftLimits(config, maxAngle, minAngle);
-        config.Slot0.kP = 30.0;
+        config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        config.Slot0.kP = 40.0;
         config.Slot0.kD = 0.0;
-        config.Slot0.kG = 2.5;
+        config.Slot0.kG = 1.0;
         config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
 
         config.CurrentLimits.StatorCurrentLimit = 120.0;
