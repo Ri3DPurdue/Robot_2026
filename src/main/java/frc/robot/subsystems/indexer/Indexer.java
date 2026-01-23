@@ -24,12 +24,8 @@ public class Indexer extends ComponentSubsystem {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.intakeSetpoint),
-                Commands.sequence(
-                    feeder.applySetpointCommand(FeederConstants.intakeSetpoint).andThen(Commands.idle())
-                        .unless(beamBreak::getDebounced)
-                        .until(beamBreak::getDebounced),
-                    feeder.applySetpointCommand(FeederConstants.idleSetpoint)
-                )
+                feeder.applySetpointCommand(FeederConstants.idleSetpoint)
+                
             )
         );
     }

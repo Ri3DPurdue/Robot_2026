@@ -1,8 +1,8 @@
 package frc.robot.subsystems.climber;
 
-import static edu.wpi.first.units.Units.Meters;
-
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
@@ -28,7 +28,7 @@ public class ClimberConstants {
     // Epsilon threshold is distance that is considered "close" for internal methods and wait commands. Lower value is higher required accuracy
     public static final Distance epsilonThreshold = Units.Centimeters.of(2.0);
     
-    public static final double gearing = 16;
+    public static final double gearing = 16.0 / 2.0; // (2 stage cascade elevator effectively halves gearing for distance traveled)
     
     // Constraints of the system's movement (hard stops, potential interferences, soft limits, etc.)
     public static final Distance minDistance = Units.Inches.of(0.0);
@@ -47,7 +47,7 @@ public class ClimberConstants {
     public static final PositionSetpoint stowSetpoint = new PositionSetpoint(converter.toAngle(stowDistance));
     
     // Information about motors driving system
-    public static final DCMotor motor = DCMotor.getKrakenX60(1); // Only needed for sim
+    public static final DCMotor motor = DCMotor.getKrakenX60(2); // Only needed for sim
 
     /**
      *  Gets the final component for the system
@@ -67,14 +67,16 @@ public class ClimberConstants {
             ? new TalonFXIO(
                 IDs.CLIMBER_MAIN.id,
                 IDs.CLIMBER_MAIN.bus,
-                getMainConfig()
+                getMainConfig(), 
+                Pair.of(IDs.CLIMBER_FOLLOWER.id, false)
                 )
             : new TalonFXIOSim(
                 IDs.CLIMBER_MAIN.id,
                 IDs.CLIMBER_MAIN.bus,
                 getMainConfig(),
                 getSimObject(),
-                gearing
+                gearing,
+                Pair.of(IDs.CLIMBER_FOLLOWER.id, false)
             );
     }
 
@@ -84,7 +86,7 @@ public class ClimberConstants {
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
         ConfigUtil.withSoftLimits(config, converter.toAngle(maxDistance), converter.toAngle(minDistance));
-        config.Slot0.kP = 0.8; 
+        config.Slot0.kP = 0.0; 
         config.Slot0.kD = 0.0;
 
         return config;    

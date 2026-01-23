@@ -1,12 +1,14 @@
 package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.GravityTypeValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.lib.component.HomingServoMotorComponent;
+import frc.lib.component.ServoMotorComponent;
 import frc.lib.component.HomingServoMotorComponent.HomingConfig;
 import frc.lib.io.motor.ctre.TalonFXIO;
 import frc.lib.io.motor.ctre.TalonFXIOSim;
@@ -23,16 +25,16 @@ public class PivotConstants {
     public static final Angle epsilonThreshold = Units.Degrees.of(5.0);
     
     // TODO: Update gearing
-    public static final double gearing = 5.; 
+    public static final double gearing = 5.0; 
     
     // TODO: Update limits
-    public static final Angle minAngle = Units.Degrees.of(-10.0);
-    public static final Angle maxAngle = Units.Degrees.of(110.0);
+    public static final Angle minAngle = Units.Degrees.of(44.0);
+    public static final Angle maxAngle = Units.Degrees.of(89.0);
 
     // TODO: Find actual positions
-    public static final Angle intakeAngle = Units.Degrees.of(-3.0);
+    public static final Angle intakeAngle = Units.Degrees.of(51.0);
     public static final Angle stowAngle = maxAngle;
-    public static final Angle spitAngle = Units.Degrees.of(0.0);
+    public static final Angle spitAngle = Units.Degrees.of(60.0);
     
     public static final PositionSetpoint intakeSetpoint = new PositionSetpoint(intakeAngle);
     public static final PositionSetpoint stowSetpoint = new PositionSetpoint(stowAngle);
@@ -43,10 +45,10 @@ public class PivotConstants {
     /**
      * Gets the pivot with a built-in homing sequence
      */
-    public static final HomingServoMotorComponent<TalonFXIO> getComponent() {
+    public static final ServoMotorComponent<TalonFXIO> getComponent() {
         TalonFXIO io = getMotorIO();
         io.overrideLoggedUnits(Degrees, DegreesPerSecond, Celsius);
-        return new HomingServoMotorComponent<TalonFXIO>(io, epsilonThreshold, stowAngle, getHomingConfig());     
+        return new ServoMotorComponent<TalonFXIO>(io, epsilonThreshold, stowAngle);     
     }
 
     /**
@@ -75,9 +77,14 @@ public class PivotConstants {
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
         ConfigUtil.withSoftLimits(config, maxAngle, minAngle);
-        // TODO: Tune kP and kD
-        config.Slot0.kP = 10.0;
-        config.Slot0.kD = 10.0;
+        config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        config.Slot0.kP = 40.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kG = 1.0;
+        config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+
+        config.CurrentLimits.StatorCurrentLimit = 180.0; // DONT DO THIS. THIS IS TOO HIGH
+        config.CurrentLimits.SupplyCurrentLimit = 80.0;
 
         return config;    
     }

@@ -12,6 +12,7 @@ public class Climber extends ComponentSubsystem {
     public Climber() {
         climber = registerComponent("Climber", ClimberConstants.getComponent());
         setDefaultCommand(stow().andThen(Commands.idle()));
+        climber.disable();
     }
 
     public Command fullExtend() {
