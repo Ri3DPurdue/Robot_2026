@@ -18,20 +18,14 @@ public class Indexer extends ComponentSubsystem {
         feeder = registerComponent("Feeder", FeederConstants.getComponent());
         beamBreak = registerComponent("Beam Break", BeamBreakConstants.getComponent());
         setDefaultCommand(idle().andThen(Commands.idle()));
-        feeder.disable();
-        belt.disable();
     }
 
     public Command intake() {
         return withRequirement(
             Commands.parallel(
                 belt.applySetpointCommand(BeltConstants.intakeSetpoint),
-                Commands.sequence(
-                    feeder.applySetpointCommand(FeederConstants.intakeSetpoint).andThen(Commands.idle())
-                        .unless(beamBreak::getDebounced)
-                        .until(beamBreak::getDebounced),
-                    feeder.applySetpointCommand(FeederConstants.idleSetpoint)
-                )
+                feeder.applySetpointCommand(FeederConstants.idleSetpoint)
+                
             )
         );
     }

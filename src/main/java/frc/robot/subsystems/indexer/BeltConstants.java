@@ -25,7 +25,7 @@ public class BeltConstants {
 
     // Notable points for system
     public static final Voltage feedVoltage = Units.Volts.of(10.0);
-    public static final Voltage intakeVoltage = Units.Volts.of(2.0);
+    public static final Voltage intakeVoltage = Units.Volts.of(8.0);
     public static final Voltage spitVoltage = Units.Volts.of(-6.0);
 
     // Setpoints for notable points
@@ -79,7 +79,8 @@ public class BeltConstants {
     */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-
+        config.CurrentLimits.StatorCurrentLimit = 80.0;
+        config.CurrentLimits.SupplyCurrentLimit = 60.0;
         return config;    
     }
 

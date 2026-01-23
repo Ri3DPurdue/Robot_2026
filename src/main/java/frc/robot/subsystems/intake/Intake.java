@@ -6,6 +6,7 @@ import frc.lib.component.ComponentSubsystem;
 import frc.lib.component.ServoMotorComponent;
 import frc.lib.component.MotorComponent;
 import frc.lib.io.motor.ctre.TalonFXIO;
+import frc.lib.io.motor.setpoints.IdleSetpoint;
 
 public class Intake extends ComponentSubsystem {
     private final ServoMotorComponent<TalonFXIO> pivot;
@@ -15,8 +16,6 @@ public class Intake extends ComponentSubsystem {
         pivot = registerComponent("Pivot", PivotConstants.getComponent());
         roller = registerComponent("Rollers", RollerConstants.getComponent());
         setDefaultCommand(stow().andThen(Commands.idle()));
-
-        roller.disable();
     }
 
     public Command intake() {
@@ -31,7 +30,7 @@ public class Intake extends ComponentSubsystem {
     public Command stow() {
         return withRequirement(
             Commands.parallel(
-                pivot.applySetpointCommand(PivotConstants.stowSetpoint),
+                pivot.applySetpointCommand(new IdleSetpoint()),
                 roller.applySetpointCommand(RollerConstants.idleSetpoint)
             )
         );

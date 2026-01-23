@@ -6,6 +6,8 @@ import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.Voltage;
@@ -26,7 +28,7 @@ public class FeederConstants {
     public static final double gearing = 1.0;
 
     // Notable points for system
-    public static final Voltage feedVoltage = Volts.of(8.0);
+    public static final Voltage feedVoltage = Volts.of(4.0);
     public static final Voltage intakeVoltage = Volts.of(2.0);
     public static final Voltage spitVoltage = Volts.of(-8.0);
 
@@ -73,7 +75,9 @@ public class FeederConstants {
      */ 
     public static final TalonFXConfiguration getMainConfig() {
         TalonFXConfiguration config = ConfigUtil.getSafeFXConfig(gearing);
-
+        config.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        config.CurrentLimits.StatorCurrentLimit = 80.0;
+        config.CurrentLimits.SupplyCurrentLimit = 60.0;
         return config;    
     }
 
