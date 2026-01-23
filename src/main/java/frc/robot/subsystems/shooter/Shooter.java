@@ -62,6 +62,15 @@ public class Shooter extends ComponentSubsystem {
         );
     }
 
+    public Command prepFerryShot(Supplier<Distance> shotDistanceSupplier) {
+        return withRequirement(
+            Commands.parallel(
+                topFlywheel.followSetpointCommand(() -> new VelocitySetpoint(TopFlywheelConstants.ferryDistanceVelocityMap.get(shotDistanceSupplier.get()))),
+                bottomFlywheel.followSetpointCommand(() -> new VelocitySetpoint(BottomFlywheelConstants.ferryDistanceVelocityMap.get(shotDistanceSupplier.get())))
+            )
+        );
+    }
+
     public Command prepVariableShot(Supplier<Distance> shotDistanceSupplier) {
         return withRequirement(
             Commands.parallel(

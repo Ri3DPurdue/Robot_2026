@@ -37,10 +37,12 @@ public class TopFlywheelConstants {
     // Notable points for system
     public static final AngularVelocity shotVelocity = Units.RPM.of(1000.0); //TODO get actual velocity
     public static final AngularVelocity steadyStateVelocity = Units.RPM.of(600);
+    public static final AngularVelocity ferryVelocity = Units.RPM.of(9000);
 
     // Setpoints for notable points
     public static final VelocitySetpoint shotSetpoint = new VelocitySetpoint(shotVelocity);
     public static final VelocitySetpoint steadyStateSetpoint = new VelocitySetpoint(steadyStateVelocity);
+    public static final VelocitySetpoint ferrySetpoint = new VelocitySetpoint(ferryVelocity);
     public static final IdleSetpoint idleSetpoint = new IdleSetpoint();
 
     // Information about motors driving system
@@ -58,6 +60,14 @@ public class TopFlywheelConstants {
     }
 
     public static InterpolatingMeasureMap<Distance, DistanceUnit, AngularVelocity, AngularVelocityUnit> shotDistanceVelocityMap = new InterpolatingMeasureMap<>(getInterpolableData());
+    
+    private static ArrayList<Pair<Distance, AngularVelocity>> getFerryData() {
+        ArrayList<Pair<Distance, AngularVelocity>> a = new ArrayList<Pair<Distance, AngularVelocity>>();
+        a.add(Pair.of(Units.Meters.of(9), Units.RPM.of(9000)));
+        return a;
+    }
+    
+    public static InterpolatingMeasureMap<Distance, DistanceUnit, AngularVelocity, AngularVelocityUnit> ferryDistanceVelocityMap = new InterpolatingMeasureMap<>(getFerryData());
 
     /**
      *  Gets the final component for the system

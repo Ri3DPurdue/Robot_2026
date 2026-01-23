@@ -90,7 +90,7 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
     }
 
     public Distance getFerryDistance() {
-        return getShotDistance(DriveConstants.getFerryPose().toPose2d().getTranslation());
+        return getShotDistance(DriveConstants.getFerryPose(getState().Pose.getTranslation()).toPose2d().getTranslation());
     }
 
     public Command alignDrive(CommandXboxController controller, Supplier<Pose2d> targetPoseSupplier) {
@@ -105,7 +105,8 @@ public class Drive extends CommandSwerveDrivetrain implements Loggable {
             double shooterAngleRads = Math.acos(shooterOffset / targetDistance); 
             Rotation2d shooterAngle = Rotation2d.fromRadians(shooterAngleRads);
             Rotation2d offsetAngle = Rotation2d.kCCW_90deg.minus(shooterAngle);
-            Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg);
+            Rotation2d shooterAngleOffset = Rotation2d.fromDegrees(2);
+            Rotation2d desiredAngle = offsetAngle.plus(drivePose.relativeTo(targetPose).getTranslation().getAngle()).plus(Rotation2d.k180deg).plus(shooterAngleOffset);
             Rotation2d currentAngle = drivePose.getRotation();
             Rotation2d deltaAngle = currentAngle.minus(desiredAngle);
             double wrappedAngleDeg = MathUtil.inputModulus(deltaAngle.getDegrees(), -180.0, 180.0);

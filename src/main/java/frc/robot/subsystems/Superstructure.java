@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.controlBoard.ControlBoardConstants;
-import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.indexer.Indexer;
@@ -59,11 +58,15 @@ public class Superstructure implements Loggable {
         return Commands.parallel(
             shooter.prepVariableShot(() -> drive.getShotDistance(targetPose.get().getTranslation())),
             drive.alignDrive(ControlBoardConstants.driver, targetPose)
+            );
+        }
+        
+        public Command prepFerryShot() {
+            // return prepShot(() -> DriveConstants.getFerryPose(drive.getState().Pose.getTranslation()).toPose2d());
+            return Commands.parallel(
+                drive.alignDrive(ControlBoardConstants.driver, () -> DriveConstants.getFerryPose(drive.getState().Pose.getTranslation()).toPose2d()),
+                shooter.prepFerryShot(() -> drive.getFerryDistance())
         );
-    }
-
-    public Command prepFerryShot() {
-        return prepShot(() -> DriveConstants.getFerryPose().toPose2d());
     } 
 
     public Command prepHubShot() {
