@@ -24,9 +24,9 @@ import static edu.wpi.first.units.Units.*;
 
 public class RollerConstants {
     public static final double gearing = 42./18;
-
+ 
     // TODO: Find actual voltages
-    public static final Voltage intakeVoltage = Units.Volts.of(4.0);
+    public static final Voltage intakeVoltage = Units.Volts.of(7.0);
     public static final Voltage spitVoltage = Units.Volts.of(-6.0);
 
     public static final VoltageSetpoint inwardsSetpoint = new VoltageSetpoint(intakeVoltage);
